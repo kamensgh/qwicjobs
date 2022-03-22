@@ -1,0 +1,80 @@
+@import 'bootstrap/scss/bootstrap.scss';
+
+// Colors
+$primary: #083245;
+$secondary: #66B100;
+$white : #fff;
+$danger : #ff0000; 
+
+//font
+$font-family-base: 'Montserrat',
+sans-serif;
+
+
+// scss-docs-start container-max-widths
+$container-max-widths: (sm: 540px,
+    md: 720px,
+    lg: 960px,
+    xl: 1140px,
+    xxl: 1534px) !default;
+// scss-docs-end container-max-widths 
+
+    
+body{
+    font-family: $font-family-base !important;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+//buttons
+.btn{
+    border-radius: 9px !important;
+    padding: 7px 35px !important;
+}
+
+
+.btn-primary {
+    color: #fff;
+    background-color: $primary !important;
+    border-color: $primary !important;
+}
+
+
+.btn-secondary {
+    color: #fff;
+    background-color: $secondary !important;
+    border-color: $secondary !important;
+}
+
+
+
+//backgrounds
+.bg-primary{
+    background-color: $primary;
+}
+
+.bg-secondary {
+    background-color: $secondary;
+}
+
+
+.fw-bold {
+    font-weight: 600 !important;
+}
+
+.text-success {
+    color: #66B100 !important;
+}
+
+.text-orange {
+    color: #F27205 !important;
+}
+
+
+
+
+.section{
+    padding: 60px 0 58px;
+}
