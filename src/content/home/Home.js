@@ -85,7 +85,6 @@ const Home = () => {
                   <h1 className="fw-bold">
                     Cut down on stress Get professional help today
                   </h1>
-
                   <p>
                     We connect you to some of the finest people around you to
                     offer their services when you most need it. You have the
