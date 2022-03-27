@@ -32,18 +32,24 @@ html {
 .btn{
     border-radius: 9px !important;
     padding: 7px 35px !important;
+    white-space: nowrap;
+
+    &:focus{
+        box-shadow: none !important;
+        outline: 0 !important;
+    }
 }
 
 
 .btn-primary {
-    color: #fff;
+    color: #fff !important;
     background-color: $primary !important;
     border-color: $primary !important;
 }
 
 
 .btn-secondary {
-    color: #fff;
+    color: #fff !important;
     background-color: $secondary !important;
     border-color: $secondary !important;
 }
@@ -52,11 +58,11 @@ html {
 
 //backgrounds
 .bg-primary{
-    background-color: $primary;
+    background-color: $primary !important; 
 }
 
 .bg-secondary {
-    background-color: $secondary;
+    background-color: $secondary !important;
 }
 
 
@@ -72,9 +78,43 @@ html {
     color: #F27205 !important;
 }
 
-
+a {
+    color: $primary !important;
+    text-decoration: none !important;
+}
 
 
 .section{
-    padding: 60px 0 58px;
+    padding: 92px 0 92px;
+}
+
+$objectLineheight: 0,
+0.5,
+1,
+1.5,
+2,
+2.5,
+inherit,
+initial,
+normal,
+revert,
+unset;
+
+@each $tuple in $objectLineheight {
+    .line-height-#{($tuple)} {
+        line-height: $tuple;
+    }
+}
+
+//Form
+
+.form-label{
+    font-weight: 600;
+    font-size: small;
+}
+
+.form-control {
+    padding: 0.55rem 0.75rem;
+    border-color: #E2E2E2;
+    border-radius: 11px;
 }

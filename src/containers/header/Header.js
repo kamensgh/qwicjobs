@@ -1,7 +1,9 @@
 import React from 'react'
-import { Navbar, Container, Nav, Button } from 'react-bootstrap';
+import { Navbar, Container, Nav } from 'react-bootstrap';
 import Logo from '../../logo.svg'
 import './header.scss'
+import { Link } from 'react-router-dom';
+
 
 const Header = () => {
   return (
@@ -29,14 +31,17 @@ const Header = () => {
 
               <Nav.Link href="#action1">Why Qwicjobs?</Nav.Link>
             </Nav>
-            <div>
-              <Button href="#" variant="primary">
+            <div className="ms-0 ms-lg-5">
+              <Link to="/login" className="btn btn-primary">
                 LOGIN
-              </Button>
+              </Link>
 
-              <Button href="#" className="ms-4" variant="secondary">
+              <Link
+                to="/signup"
+                className="ms-4 btn btn-secondary"
+              >
                 SIGNUP
-              </Button>
+              </Link>
             </div>
           </Navbar.Collapse>
         </Container>
