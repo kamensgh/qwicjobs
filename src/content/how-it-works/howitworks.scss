@@ -1,0 +1,33 @@
+.howitworks-banner{
+    background-color: #66B100;
+    // height: 454px;
+
+    @media (max-width:768px) {
+        height: 100%;
+        padding-top: 10px;
+    }
+
+    @media (max-width:576px) {
+        padding-top: 40px;
+    }
+
+
+    .banner-text{
+        font-weight: 600;
+        color: white;
+    }
+}
+
+
+.card{
+
+    box-shadow: 0px 3px 6px #00000029;
+    border-radius: 19px;
+    border: none;
+    height: 100%;
+
+    .card-img-top {
+        padding: 1rem 1rem;
+    }
+
+}

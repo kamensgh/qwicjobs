@@ -93,7 +93,7 @@ const Footer = () => {
               <h4 className="fw-bold">Contact Info</h4>
               <ul className="list-inline mt-0 pt-0 mt-md-4 pt-md-3">
                 <li className="mb-2">
-                  <Link to="/" className="text-white">
+                  <Link to="/" className="text-white d-flex">
                     <img
                       src={`${process.env.PUBLIC_URL}/images/svg/mail.svg`}
                       alt="rate"
@@ -103,17 +103,17 @@ const Footer = () => {
                   </Link>
                 </li>
                 <li className="mb-2">
-                  <Link to="/" className="text-white">
+                  <Link to="/" className="text-white d-flex">
                     <img
                       src={`${process.env.PUBLIC_URL}/images/svg/phone.svg`}
                       alt="rate"
                       className="me-3"
                     />
-                    +0 320 422 4254 / +2332445654
+                    +0320&nbsp;422&nbsp;4254&nbsp;/&nbsp;+233&nbsp;244&nbsp;5654
                   </Link>
                 </li>
                 <li className="mb-2">
-                  <Link to="/" className="text-white">
+                  <Link to="/" className="text-white d-flex">
                     <img
                       src={`${process.env.PUBLIC_URL}/images/svg/pin.svg`}
                       alt="rate"
@@ -130,10 +130,10 @@ const Footer = () => {
 
       <div className="border-top mt-5 py-4">
         <div className="container">
-          <div className="d-flex justify-content-between">
-            <p>Copyright ©2021 All rights reserved | Qwicjobs</p>
+          <div className="d-flex flex-column flex-md-row justify-content-between">
+            <p className='text-center text-md-start'>Copyright ©2021 All rights reserved | Qwicjobs</p>
 
-            <Link to="/" className="text-white">
+            <Link to="/" className="text-white text-center text-md-end">
               www.qwicjobs.com
             </Link>
           </div>

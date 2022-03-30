@@ -1,6 +1,13 @@
 .home-banner{
     background-color: #083245;
-    height: 550px;
+    height: 570px;
+
+    @media (max-width:768px) {
+
+        height: 100%;
+        padding-top: 47px;
+      
+  }
 
 
     .banner-text{
@@ -22,5 +29,22 @@
 
           height: 500px;
         
+    }
+}
+
+.carousel-caption{
+    bottom: 7.25rem;
+    left: 7%;
+}
+
+.carousel-item{
+    img{
+        height: 550px;
+
+        @media (max-width:768px) {
+
+            height: 450px;
+          
+      }
     }
 }

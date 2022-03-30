@@ -4,6 +4,7 @@
 $primary: #083245;
 $secondary: #66B100;
 $white : #fff;
+$orange: #F27205;
 $danger : #ff0000; 
 
 //font
@@ -19,7 +20,13 @@ $container-max-widths: (sm: 540px,
     xxl: 1534px) !default;
 // scss-docs-end container-max-widths 
 
-    
+:root {
+    --breakpoint-sm: 576px;
+    --breakpoint-md: 768px;
+    --breakpoint-lg: 992px;
+    --breakpoint-xl: 1200px;
+    --bs-body-color: #083245;
+}
 body{
     font-family: $font-family-base !important;
 }
@@ -30,8 +37,8 @@ html {
 
 //buttons
 .btn{
-    border-radius: 9px !important;
-    padding: 7px 35px !important;
+    border-radius: 9px;
+    padding: 9px 35px !important;
     white-space: nowrap;
 
     &:focus{
@@ -75,7 +82,7 @@ html {
 }
 
 .text-orange {
-    color: #F27205 !important;
+    color: $orange !important;
 }
 
 a {
@@ -106,6 +113,10 @@ unset;
     }
 }
 
+.line-height-1half {
+    line-height: 1.5;
+}
+
 //Form
 
 .form-label{
@@ -117,4 +128,51 @@ unset;
     padding: 0.55rem 0.75rem;
     border-color: #E2E2E2;
     border-radius: 11px;
+
+    &:focus{
+        box-shadow: none !important;
+        outline: 0 !important;
+    }
+
+    &::placeholder{
+        color: #cdd2d7;
+    }
+}
+
+.form-check-input:focus {
+    border-color: unset;
+    outline: 0;
+    box-shadow: none;
+}
+
+
+//Modals
+.modal-backdrop{
+    background-color: #083245;
+
+    &.show{
+        opacity: 0.97;
+    }
+
+}
+
+
+
+.signup-quicjobber{
+    height: 250px;
+    width: 290px;
+    background-color: $secondary;
+    padding: 20px 35px;
+    display: flex;
+    align-items: center;
+}
+
+
+.find-quicjobber{
+    height: 250px;
+    width: 290px;
+    background-color: $orange;
+    padding: 20px 35px;
+    display: flex;
+    align-items: center;
 }

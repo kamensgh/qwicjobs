@@ -1,14 +1,15 @@
 import React from 'react';
 import './home.scss';
-import { Row, Col, Button } from 'react-bootstrap';
+import { Row, Button } from 'react-bootstrap';
+import Homecarousel from '../../components/Homecarousel'
 
 const Home = () => {
   return (
     <>
       <div className="home-banner">
         <div className="container h-100">
-          <Row className="h-100">
-            <Col>
+          <Row className="h-100 overflow-hidden">
+            <div className='col-12 col-md-6 h-100'>
               <div className="h-100 d-flex flex-column justify-content-center">
                 <h1 className="banner-text mb-4">
                   We all need help sometimes, we help you find the best.
@@ -19,12 +20,13 @@ const Home = () => {
                   everyday needs. Search, Find, Employ. It’s that simple.
                 </p>
 
-                <div className="d-flex">
+                <div className="d-flex flex-wrap">
                   <div className="me-5">
                     <img
                       src={`${process.env.PUBLIC_URL}/images/banner-stars.png`}
                       alt="rate"
                       width={180}
+                      className="mb-4 mb-lg-0"
                     />
                   </div>
                   <Button variant="light" className="fw-bold">
@@ -32,8 +34,10 @@ const Home = () => {
                   </Button>
                 </div>
               </div>
-            </Col>
-            <Col>2 of 2</Col>
+            </div>
+            <div className='col-12 col-md-6 h-100'>
+              <Homecarousel/>
+            </div>
           </Row>
         </div>
       </div>
@@ -69,7 +73,7 @@ const Home = () => {
       <div className="section pb-0 bg-light">
         <div className="container h-100">
           <div className="row justify-content-around">
-            <div className="col-12 col-md-6 col-lg-4">
+            <div className="col-12 col-md-6 col-lg-5">
               <div>
                 <img
                   src={`${process.env.PUBLIC_URL}/images/img1.png`}
@@ -129,9 +133,9 @@ const Home = () => {
           <h3 className="text-center mb-5 fw-bold">Process</h3>
 
           <div className="row justify-content-center">
-            <div className="col-12 col-md-4 col-xl-3">
+            <div className="col-12 col-md-4 mb-4 mb-md-0 col-xl-3">
               <div
-                className="card h-100 mb-4 mb-md-0 text-center p-4 p-lg-5"
+                className="card h-100  text-center p-4 p-lg-5"
                 style={{ borderRadius: '20px' }}
               >
                 <div>
@@ -152,9 +156,9 @@ const Home = () => {
                 </div>
               </div>
             </div>
-            <div className="col-12 col-md-4 col-xl-3">
+            <div className="col-12 col-md-4 mb-4 mb-md-0 col-xl-3">
               <div
-                className="card h-100 mb-4 mb-md-0 text-center p-4 p-lg-5"
+                className="card h-100 text-center p-4 p-lg-5"
                 style={{ borderRadius: '20px' }}
               >
                 <div>
@@ -172,9 +176,9 @@ const Home = () => {
                 </div>
               </div>
             </div>
-            <div className="col-12 col-md-4 col-xl-3">
+            <div className="col-12 col-md-4 mb-4 mb-md-0 col-xl-3">
               <div
-                className="card h-100 mb-4 mb-md-0 text-center p-4 p-lg-5"
+                className="card h-100 text-center p-4 p-lg-5"
                 style={{ borderRadius: '20px' }}
               >
                 <div>
