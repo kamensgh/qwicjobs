@@ -117,4 +117,9 @@ unset;
     padding: 0.55rem 0.75rem;
     border-color: #E2E2E2;
     border-radius: 11px;
+    
+     &:focus {
+         box-shadow: none !important;
+         outline: 0 !important;
+     }
 }
