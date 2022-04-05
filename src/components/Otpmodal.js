@@ -34,7 +34,7 @@ const Otpmodal = ({show, onHide }) => {
                 </div>
                 <div className="modal-footer pb-5 px-5 border-0">
                     {/* <button type="button" className="btn btn-secondary w-100" onClick={onHide} data-bs-dismiss="modal">Let’s go</button> */}
-                    <Link to="/profile" className="btn btn-secondary w-100">
+                    <Link to="/userprofile" className="btn btn-secondary w-100">
                             SIGNUP
                           </Link>
                 </div>
