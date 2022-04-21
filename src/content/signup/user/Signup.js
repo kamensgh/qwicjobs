@@ -1,6 +1,6 @@
 import React from 'react'
 import "./signup.scss"
-import Logo from '../../logo.svg';
+import Logo from '../../../logo.svg';
 import { Link } from 'react-router-dom';
 
 
@@ -70,6 +70,36 @@ const Signup = () => {
                           placeholder="eg. 0244123456"
                         />
                       </div>
+                        <div className="mb-3">
+                          <label
+                            htmlFor="exampleFormControlInput1"
+                            className="form-label"
+                          >
+                            Password
+                          </label>
+                          <input
+                            type="password"
+                            autoComplete='off'
+                            className="form-control"
+                            id="exampleFormControlInput1"
+                            placeholder="Enter Password"
+                          />
+                        </div>
+                        <div className="mb-3">
+                          <label
+                            htmlFor="exampleFormControlInput1"
+                            className="form-label"
+                          >
+                            Repeat Password
+                          </label>
+                          <input
+                            type="password"
+                            autoComplete='off'
+                            className="form-control"
+                            id="exampleFormControlInput1"
+                            placeholder="Re-enter Password"
+                          />
+                        </div>
 
                         <div className='d-flex justify-content-between align-items-center mt-5'>
                             <div>

@@ -44,7 +44,7 @@ const Header = () => {
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu align="end" className='rounded-3'>
-                  <Dropdown.Item href="#/action-1">
+                  <Dropdown.Item href="worker-signup">
                     <div className='signup-quicjobber'>
                       <div>
                         <div className='text-center'>
@@ -54,7 +54,7 @@ const Header = () => {
                       </div>
                     </div>
                   </Dropdown.Item>
-                  <Dropdown.Item href="/signup">
+                  <Dropdown.Item href="/user-signup">
                     <div className='find-quicjobber'>
                       <div>
                         <div className='text-center'>

@@ -1,0 +1,35 @@
+
+.signup-wrapper{
+    background-color: #F5F5F5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+} 
+
+.form-control {
+    padding: 0.85rem 0.75rem;
+}
+
+
+.other-services{
+
+    li{
+        margin-bottom: 10px;
+
+         input{
+             background: transparent;
+             border-top: none;
+             border-left: none;
+             border-right: none;
+             width: 100%;
+
+             &:focus{
+                 outline: none;
+                 box-shadow: none;
+             }
+
+         }
+    }
+
+}

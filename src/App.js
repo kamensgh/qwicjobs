@@ -1,5 +1,5 @@
 import './App.scss';
-import { Home, Login , Signup, Howitworks , UserProfile } from './content';
+import { Home, Login , UserSignup, WorkerSignup, Howitworks , UserProfile } from './content';
 import { Route, Routes } from 'react-router-dom';
 import Layout from './containers/layout'
 import UserLayout from './containers/layout/UserProfile'
@@ -22,7 +22,8 @@ function App() {
           <Route path="/userprofile" element={<UserProfile />} />
         </Route>
         <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
+        <Route path="/user-signup" element={<UserSignup />} />
+        <Route path="/worker-signup" element={<WorkerSignup />} />
       </Routes>
     </main>
   

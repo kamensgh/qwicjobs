@@ -25,7 +25,9 @@ const Login = () => {
               <div className="row g-0 flex-fill justify-content-center">
                 <div className="col-11 col-md-6 col-lg-6 col-xl-7">
                   <div className="text-center">
-                    <img src={Logo} alt="logo" width={170} />
+                    <Link to="/">
+                      <img src={Logo} alt="logo" width={170} />
+                    </Link>
                   </div>
 
                   <div className="mt-4 pt-2">
@@ -51,6 +53,20 @@ const Login = () => {
                               placeholder="0244123456"
                             />
                           </div>
+                          <div className="mb-3">
+                            <label
+                              htmlFor="exampleFormControlInput1"
+                              className="form-label"
+                            >
+                              Enter Password
+                            </label>
+                            <input
+                              type="email"
+                              className="form-control"
+                              id="exampleFormControlInput1"
+                              placeholder="Enter Your Password"
+                            />
+                          </div>
 
                           <button className="btn btn-secondary mt-3 w-100" onClick={handleShow}>
                             SEND CODE
@@ -60,7 +76,7 @@ const Login = () => {
                       <div className="bg-primary py-4">
                         <p className="m-0 small text-center text-white">
                           Don't have an account? &nbsp;
-                          <Link to="/signup" className="text-orange">
+                          <Link to="/user-signup" className="text-orange">
                             SIGNUP
                           </Link>
                         </p>
