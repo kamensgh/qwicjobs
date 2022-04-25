@@ -32,10 +32,10 @@ const Signup = () => {
               </div>
               <div className="p-4 p-xl-5">
                 <div className="row justify-content-center">
-                  <div className="col-12 col-md-12 col-lg-11 col-xl-10">
+                  <div className="col-12 col-md-12 col-lg-11 col-xl-10">  
 
-                    <Stepone />
-                    <Steptwo />
+                    {/* <Stepone />
+                    <Steptwo /> */}
 
 
                   </div>

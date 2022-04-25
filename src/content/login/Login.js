@@ -2,15 +2,11 @@ import {React, useState }  from 'react';
 import './login.scss';
 import Logo from '../../logo-white.svg';
 import { Link } from 'react-router-dom';
-import Modal from "../../components/Otpmodal"
+import LoginForm from '../../components/login/LoginForm';
 
 
 const Login = () => {
-  const [show, setShow] = useState(false);
-
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-
+  // const [show, setShow] = useState(false);
 
 
   return (
@@ -38,40 +34,7 @@ const Login = () => {
                       <div className="bg-white p-4 p-lg-5">
                         <h6 className="fw-bold">Log in with your phone number</h6>
 
-                        <div className="mt-4">
-                          <div className="mb-3">
-                            <label
-                              htmlFor="exampleFormControlInput1"
-                              className="form-label"
-                            >
-                              Enter Phone Number
-                            </label>
-                            <input
-                              type="email"
-                              className="form-control"
-                              id="exampleFormControlInput1"
-                              placeholder="0244123456"
-                            />
-                          </div>
-                          <div className="mb-3">
-                            <label
-                              htmlFor="exampleFormControlInput1"
-                              className="form-label"
-                            >
-                              Enter Password
-                            </label>
-                            <input
-                              type="email"
-                              className="form-control"
-                              id="exampleFormControlInput1"
-                              placeholder="Enter Your Password"
-                            />
-                          </div>
-
-                          <button className="btn btn-secondary mt-3 w-100" onClick={handleShow}>
-                            SEND CODE
-                          </button>
-                        </div>
+                      <LoginForm/>
                       </div>
                       <div className="bg-primary py-4">
                         <p className="m-0 small text-center text-white">
@@ -90,7 +53,6 @@ const Login = () => {
         </div>
       </div>
 
-      <Modal show={show} onHide={handleClose}/>
     </>
   );
 };

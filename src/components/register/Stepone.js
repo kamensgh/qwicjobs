@@ -212,12 +212,12 @@ const Stepone = () => {
                             <div className='d-flex'>
                                 <div className="form-check">
                                     <input type="radio" className="form-check-input" id="exampleCheck1" />
-                                    <label className="form-check-label" for="exampleCheck1">Male</label>
+                                    <label className="form-check-label" htmlFor="exampleCheck1">Male</label>
                                 </div>
 
                                 <div className="form-check ms-3">
                                     <input type="radio" className="form-check-input" id="exampleCheck12" />
-                                    <label className="form-check-label" for="exampleCheck12">Female</label>
+                                    <label className="form-check-label" htmlFor="exampleCheck12">Female</label>
                                 </div>
                             </div>
                         </div>
