@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import "./signup.scss"
 import Logo from '../../../logo.svg';
 import Stepone from '../../../components/register/Stepone'
@@ -7,6 +7,51 @@ import { Link } from 'react-router-dom';
 
 
 const Signup = () => {
+  const [pages, setPages] = useState(1);
+  const [formData, setFormData] = useState({
+    user: {
+      firstName: '',
+      surname: '',
+      otherNames: '',
+      email: '',
+      password: '',
+      phoneNumber: '',
+      otherNumber: '',
+      userTypeId: 4
+    },
+    provider: {
+      aboutSelf: "",
+      cityId: 1,
+      educationalLevelId: []
+    },
+    bio: {
+      dob: "",
+      profilePicture: '',
+      idTypeId: 1,
+      idNumber: "",
+      idImage: "",
+      residence: "",
+      genderId: 0
+    },
+    services: [3, 6, 8],
+    hasHealthCondition: false
+  })
+
+  const registerForms = () => {
+    const components = {
+      1: <Stepone setPages={setPages} formData={formData} setFormData={setFormData} />,
+      2: < Steptwo formData={formData} setFormData={setFormData} />
+    }
+    return components[pages] || components[1]
+  }
+
+
+
+
+
+
+
+
   return (
     <div className="no-scroll-wrapper">
       <div className="row h-100 g-0">
@@ -32,10 +77,9 @@ const Signup = () => {
               </div>
               <div className="p-4 p-xl-5">
                 <div className="row justify-content-center">
-                  <div className="col-12 col-md-12 col-lg-11 col-xl-10">  
+                  <div className="col-12 col-md-12 col-lg-11 col-xl-10">
 
-                    {/* <Stepone />
-                    <Steptwo /> */}
+                    {registerForms()}
 
 
                   </div>

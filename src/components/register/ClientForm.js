@@ -1,79 +1,112 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import axios from '../../api/axios';
+import Spinner from 'react-bootstrap/Spinner'
+const REGISTER_URL = 'api/v1/auth/register/client';
 
 
-const PWD_REGEX = /^[a-zA-Z0-9_.]+$/;
-const NUMBER_REGEX = /^\d{10}$/;
+
 
 
 function ClientForm() {
     const name = useRef();
     const errRef = useRef();
+    const navigate = useNavigate();
 
     const [firstName, setFirstName] = useState('');
-    const [validFirstName, setValidFirstName] = useState(false);
-    const [firstNameFocus, setFirstNameFocus] = useState(false);
-
     const [lastName, setLastName] = useState('');
-    const [validLastName, setValidLastName] = useState(false);
-    const [lastNameFocus, setLastNameFocus] = useState(false);
-
     const [number, setNumber] = useState('');
-    const [validNumber, setValidNumber] = useState(false);
-    const [numberFocus, setNumberFocus] = useState(false);
-
+    const [email, setEmail] = useState('');
     const [pwd, setPwd] = useState('');
-    const [validPwd, setValidPwd] = useState(false);
-    const [pwdFocus, setPwdFocus] = useState(false);
-
     const [matchPwd, setMatchPwd] = useState('');
-    const [validmatchPwd, setValidMatchPwd] = useState(false);
-    const [matchPwdFocus, setMatchPwdFocus] = useState(false);
-
-
+    const [terms, setTerms] = useState(false);
+  
     const [errMsg, setErrMsg] = useState('');
-    const [success, setSuccess] = useState(false);
+    const [loading, setLoading] = useState(false)
 
 
     useEffect(() => {
         name.current.focus();
     }, [])
 
-    useEffect(() => {
-        const results = firstName.length > 2;
-        setValidFirstName(results);
-    }, [firstName])
-
-    useEffect(() => {
-        const results = lastName.length > 2;
-        setValidLastName(results);
-    }, [lastName])
-
-
-
-    useEffect(() => {
-        const results = NUMBER_REGEX.test(number)
-        setValidNumber(results);
-    }, [number])
-
-    useEffect(() => {
-        const results = PWD_REGEX.test(pwd)
-        setValidPwd(results);
-        console.log(results);
-        const match = pwd === matchPwd;
-        setValidMatchPwd(match);
-
-
-    }, [pwd, matchPwd])
 
     useEffect(() => {
         setErrMsg('')
-    }, [firstName, lastName, number, pwd, matchPwd])
+    }, [pwd, matchPwd])
+
+    const isChecked = (e) => {
+        const checked = e.target.checked;
+        if (!checked) {
+            setTerms(false)
+            setErrMsg('')
+            console.log(terms);
+        } else {
+            setTerms(true)
+            setErrMsg('')
+            console.log(terms);
+        }
+    };
 
 
 
-    const handleSubmit = () => {
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setLoading(true);
+        const data = {
+            "user": {
+                "firstName": firstName,
+                "surname": lastName,
+                "otherNames": "",
+                "email": email,
+                "password": pwd,
+                "phoneNumber": number,
+                "userTypeId": 5
+            }
+        }
 
+        console.log(data);
+
+        const match = pwd === matchPwd;
+
+        if (!match) {
+            setErrMsg('Passwords do not match')
+            setLoading(false);
+        } else if (!terms) {
+            setErrMsg('Please accept our terms and conditions')
+            setLoading(false);
+        }
+        else {
+            try {
+                const response = await axios.post(REGISTER_URL, JSON.stringify({
+                    data
+                },
+                    {
+                        headers: {
+                            'Access-Control-Allow-Origin': '*',
+                            'Content-Type': 'application/json',
+                            'Access-Control-Allow-Credentials': 'true'
+                        }
+                    }
+                ))
+                console.log(JSON.stringify(response?.data));
+                setLoading(false);
+                navigate('/userprofile', { replace: true });
+        
+            } catch (err) {
+                console.log(err);
+                setLoading(false);
+                if (!err?.response) {
+                    setErrMsg('No Server Response')
+                } else if (err?.response.status === 400) {
+                    setErrMsg('Missing phone number or password')
+                } else if (!err?.response.status === 401) {
+                    setErrMsg('Unauthorised')
+                } else {
+                    setErrMsg('Registration failed')
+                }
+                errRef.current.focus();
+            }
+        }
     }
 
 
@@ -95,10 +128,8 @@ function ClientForm() {
                             className="form-control"
                             id="firstname"
                             placeholder="eg. Kwame"
-                            aria-invalid={validFirstName ? "false" : "true"}
                             onChange={(e) => setFirstName(e.target.value)}
-                            onFocus={() => setFirstNameFocus(true)}
-                            onBlur={() => setFirstNameFocus(false)}
+                            value={firstName}
                             required
                         />
                     </div>
@@ -107,7 +138,7 @@ function ClientForm() {
                             htmlFor="surname"
                             className="form-label"
                         >
-                            Surname
+                            Last Name
                         </label>
                         <input
                             type="text"
@@ -115,10 +146,8 @@ function ClientForm() {
                             className="form-control"
                             id="surname"
                             placeholder="eg. Mensah"
-                            aria-invalid={validLastName ? "false" : "true"}
                             onChange={(e) => setLastName(e.target.value)}
-                            onFocus={() => setLastNameFocus(true)}
-                            onBlur={() => setLastNameFocus(false)}
+                            value={lastName}
                             required
                         />
                     </div>
@@ -130,15 +159,33 @@ function ClientForm() {
                             Contact Number
                         </label>
                         <input
-                            type="email"
+                            type="number"
                             autoComplete='off'
                             className="form-control"
                             id="number"
                             placeholder="eg. 0244123456"
-                            aria-invalid={validNumber ? "false" : "true"}
+                            aria-describedby="confirmnumber"
                             onChange={(e) => setNumber(e.target.value)}
-                            onFocus={() => setNumberFocus(true)}
-                            onBlur={() => setNumberFocus(false)}
+                            value={number}
+                            required
+                        />
+                    </div>
+                    <div className="mb-3">
+                        <label
+                            htmlFor="email"
+                            className="form-label"
+                        >
+                            Email
+                        </label>
+                        <input
+                            type="email"
+                            autoComplete='off'
+                            className="form-control"
+                            id="email"
+                            placeholder="eg. example@email.com"
+                            aria-describedby="confirmnumber"
+                            onChange={(e) => setEmail(e.target.value)}
+                            value={email}
                             required
                         />
                     </div>
@@ -154,14 +201,10 @@ function ClientForm() {
                             className="form-control"
                             id="pass"
                             placeholder="Enter Password"
-                            aria-invalid={validPwd ? "false" : "true"}
+                            value={pwd}
                             onChange={(e) => setPwd(e.target.value)}
-                            onFocus={() => setPwdFocus(true)}
-                            onBlur={() => setPwdFocus(false)}
-                            aria-describedby="password"
                             required
                         />
-                        <p id='password' className={`text-danger small mt-2 ${validmatchPwd ? "info" : "d-none"}`}>Must match the first passworn input</p>
                     </div>
                     <div className="mb-3">
                         <label
@@ -175,30 +218,42 @@ function ClientForm() {
                             autoComplete='off'
                             className="form-control"
                             id="passreset"
-                            aria-invalid={validmatchPwd ? "false" : "true"}
+                            value={matchPwd}
                             onChange={(e) => setMatchPwd(e.target.value)}
-                            onFocus={() => setMatchPwdFocus(true)}
-                            onBlur={() => setMatchPwdFocus(false)}
-                            aria-describedby="confirmpassword"
                             placeholder="Re-enter Password"
+                            required
                         />
-                        <p id='confirmpassword' className={`text-danger small mt-2 ${matchPwdFocus && !validmatchPwd ? "info" : "d-none"}`}>Must match the first password input</p>
                     </div>
 
-                    <p className={errMsg ? "error" : "offscreen"} ref={errRef} arial-live="assertive">{errMsg}</p>
+                    <p className={`text-danger small mt-2  ${errMsg ? "error" : "d-none"}`} ref={errRef} arial-live="assertive">{errMsg}</p>
 
 
                     <div className='d-flex justify-content-between align-items-center mt-5'>
                         <div>
                             <div className="form-check">
-                                <input type="checkbox" className="form-check-input" id="exampleCheck1" />
-                                <label className="form-check-label" htmlFor="exampleCheck1">I Accept All T&C’s</label>
+                                <input type="checkbox" className="form-check-input" id="termsandconditions" onClick={(e) => {isChecked(e); }} />
+                                <label className="form-check-label" htmlFor="termsandconditions">I Accept All T&C’s</label>
                             </div>
                         </div>
 
-                        <button className="btn btn-secondary" disabled={!validFirstName || !validLastName || !validNumber || !validPwd || !validmatchPwd ? true : false}>
-                            SIGN UP
-                        </button>
+
+                        {loading ?
+
+                            <button className="btn btn-secondary disabled">
+                                Loading...
+                                <Spinner
+                                    as="span"
+                                    animation="grow"
+                                    size="sm"
+                                    role="status"
+                                    aria-hidden="true"
+                                />
+                            </button> :
+
+                            <button className="btn btn-secondary">
+                                SIGN UP
+                            </button>
+                        }
                     </div>
 
                     <div className='mt-5'>

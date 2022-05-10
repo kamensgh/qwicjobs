@@ -1,11 +1,13 @@
 import React, { useEffect, useRef, useState } from 'react'
 import Spinner from 'react-bootstrap/Spinner'
 import axios from '../../api/axios';
+import { useNavigate } from 'react-router-dom';
 const LOGIN_URL = 'api/v1/auth/login';
 
 const LoginForm = () => {
     const numberRef = useRef();
     const errRef = useRef();
+    const navigate = useNavigate();
 
     const [number, setNumber] = useState('')
     const [pwd, setPwd] = useState('')
@@ -23,13 +25,13 @@ const LoginForm = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
         setLoading(true);
-
         try {
-
             console.log(number, pwd);
-            const response = await axios.post(LOGIN_URL, JSON.stringify({ phoneNumber: number, password: pwd },
+            const response = await axios.post(LOGIN_URL, JSON.stringify({ 
+                "phoneNumber": number,
+                "password": pwd
+            },
                 {
                     headers: {
                         'Access-Control-Allow-Origin': '*',
@@ -41,6 +43,9 @@ const LoginForm = () => {
             console.log(JSON.stringify(response?.data));
             setNumber('')
             setPwd('')
+            setLoading(false);
+
+            navigate('/userprofile', { replace: true });
 
         } catch (err) {
             console.log(err);
@@ -54,13 +59,8 @@ const LoginForm = () => {
             } else {
                 setErrMsg('Login failed')
             }
-
             errRef.current.focus();
-
         }
-
-
-
     }
 
 
@@ -80,7 +80,7 @@ const LoginForm = () => {
                             Enter Phone Number
                         </label>
                         <input
-                            type="text"
+                            type="number"
                             className="form-control"
                             autoComplete='off'
                             ref={numberRef}
@@ -105,13 +105,13 @@ const LoginForm = () => {
                             placeholder="Enter Your Password"
                             onChange={(e) => setPwd(e.target.value)}
                             value={pwd}
+                            required
                         />
                     </div>
 
                     <p className={errMsg ? "error" : "offscreen"} ref={errRef} arial-live="assertive">{errMsg}</p>
 
                     {loading ?
-
                         <button className="btn btn-secondary mt-3 disabled w-100">
                             Loading...
                             <Spinner
@@ -122,7 +122,6 @@ const LoginForm = () => {
                                 aria-hidden="true"
                             />
                         </button> :
-
                         <button className="btn btn-secondary mt-3 w-100">
                             LOGIN
                         </button>}

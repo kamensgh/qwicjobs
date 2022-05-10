@@ -1,6 +1,8 @@
 import React from 'react'
 import "./signup.scss"
 import Logo from '../../../logo.svg';
+import { Link } from 'react-router-dom';
+
 import ClientForm from '../../../components/register/ClientForm';
 
 
@@ -17,7 +19,9 @@ const Signup = () => {
             <div className="row g-0 flex-fill justify-content-center">
               <div className="col-11 col-md-6 col-lg-7 col-xl-7">
                 <div className="text-center">
-                  <img src={Logo} alt="logo" width={170} />
+                  <Link to="/">
+                    <img src={Logo} alt="logo" width={170} />
+                  </Link>
                 </div>
                 <div className='mt-4'>
                   <p className='text-muted text-center'>Your information is secured and will not be shared with any third party</p>
