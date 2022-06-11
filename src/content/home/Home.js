@@ -1,6 +1,7 @@
 import React from 'react';
 import './home.scss';
 import { Row, Button } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import Homecarousel from '../../components/Homecarousel'
 
 const Home = () => {
@@ -20,7 +21,7 @@ const Home = () => {
                   everyday needs. Search, Find, Employ. It’s that simple.
                 </p>
 
-                <div className="d-flex flex-wrap">
+                <div className="d-flex flex-wrap align-items-center">
                   <div className="me-5">
                     <img
                       src={`${process.env.PUBLIC_URL}/images/banner-stars.png`}
@@ -29,9 +30,9 @@ const Home = () => {
                       className="mb-4 mb-lg-0"
                     />
                   </div>
-                  <Button variant="light" className="fw-bold">
+                  <Link to="/how-it-works" className="fw-bold btn btn-light">
                     How it Works
-                  </Button>
+                  </Link>
                 </div>
               </div>
             </div>
@@ -215,9 +216,11 @@ const Home = () => {
                 <div className="mt-4">
                   <p>Make money giving your services to people close to you</p>
 
-                  <button className="btn btn-light rounded-pill">
+               
+
+                  <Link to="/worker-signup" className="btn btn-light rounded-pill">
                     Join now
-                  </button>
+                  </Link>
                 </div>
               </div>
             </div>

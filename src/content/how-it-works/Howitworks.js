@@ -1,14 +1,15 @@
 import React from 'react'
 import './howitworks.scss'
 import { Row, Button } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 
 const Howitworks = () => {
   return (
     <>
-     <div className="howitworks-banner">
+     <div className="howitworks-banner p-0">
         <div className="container h-100">
-          <Row className="h-100 overflow-hidden">
+          <Row className="h-100 overflow-hidden row justify-content-between">
             <div className='col-12 col-md-6 col-xl-5'>
               <div className="h-100 d-flex flex-column justify-content-center">
                 <h1 className="banner-text mb-4 display-4">
@@ -20,13 +21,13 @@ const Howitworks = () => {
                 </p>
 
                 <div className="d-flex flex-wrap">
-                  <Button variant="light" className="fw-bold">
-                  Find a Qwicjobber Now
-                  </Button>
+                    <Link to="/worker-signup" className="btn btn-light fw-bold">
+                        Find a Qwicjobber Now
+                    </Link>
                 </div>
               </div>
             </div>
-            <div className='col-12 col-md-6 col-xl-7'>
+            <div className='col-12 col-md-6 col-xl-5'>
                 <div className='h-100 d-flex align-items-end'>
                     <img
                         src={`${process.env.PUBLIC_URL}/images/bannerimg3.png`}
@@ -97,7 +98,9 @@ const Howitworks = () => {
 
                                     <div className='text-center'>
                                         <h5 className='fw-bold line-height-1half'>WANT TO MAKE MONEY OFFERING YOUR SERVICES?</h5>
-                                        <button className='btn btn-primary rounded-pill fw-bold mt-2'>SIGN UP HERE</button>
+                                        <Link to="/worker-signup" className="btn btn-primary rounded-pill fw-bold mt-2">
+                                            SIGN UP HERE
+                                        </Link>
                                     </div>
 
                                 </div>

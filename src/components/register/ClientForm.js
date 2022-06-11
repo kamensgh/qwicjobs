@@ -2,13 +2,16 @@ import React, { useEffect, useRef, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import axios from '../../api/axios';
 import Spinner from 'react-bootstrap/Spinner'
+import { useStateContext } from '../../contexts/ContextProvider'
 const REGISTER_URL = 'api/v1/auth/register/client';
 
 
 
 
 
+
 function ClientForm() {
+    const { setuserInfo } = useStateContext();
     const name = useRef();
     const errRef = useRef();
     const navigate = useNavigate();
@@ -20,7 +23,7 @@ function ClientForm() {
     const [pwd, setPwd] = useState('');
     const [matchPwd, setMatchPwd] = useState('');
     const [terms, setTerms] = useState(false);
-  
+
     const [errMsg, setErrMsg] = useState('');
     const [loading, setLoading] = useState(false)
 
@@ -53,18 +56,18 @@ function ClientForm() {
         e.preventDefault();
         setLoading(true);
         const data = {
-            "user": {
-                "firstName": firstName,
-                "surname": lastName,
-                "otherNames": "",
-                "email": email,
-                "password": pwd,
-                "phoneNumber": number,
-                "userTypeId": 5
+            user: {
+                firstName: firstName,
+                surname: lastName,
+                otherNames: "",
+                email: email,
+                password: pwd,
+                phoneNumber: number,
+                userTypeId: 5
             }
         }
 
-        console.log(data);
+        console.log(JSON.stringify(data));
 
         const match = pwd === matchPwd;
 
@@ -77,23 +80,14 @@ function ClientForm() {
         }
         else {
             try {
-                const response = await axios.post(REGISTER_URL, JSON.stringify({
-                    data
-                },
-                    {
-                        headers: {
-                            'Access-Control-Allow-Origin': '*',
-                            'Content-Type': 'application/json',
-                            'Access-Control-Allow-Credentials': 'true'
-                        }
-                    }
-                ))
-                console.log(JSON.stringify(response?.data));
+                const response = await axios.post(REGISTER_URL, data);
+                localStorage.removeItem("userinfo"); 
+                localStorage.setItem("userinfo", JSON.stringify(response?.data));
                 setLoading(false);
                 navigate('/userprofile', { replace: true });
-        
+
             } catch (err) {
-                console.log(err);
+                console.log(err.response);
                 setLoading(false);
                 if (!err?.response) {
                     setErrMsg('No Server Response')
@@ -231,7 +225,7 @@ function ClientForm() {
                     <div className='d-flex justify-content-between align-items-center mt-5'>
                         <div>
                             <div className="form-check">
-                                <input type="checkbox" className="form-check-input" id="termsandconditions" onClick={(e) => {isChecked(e); }} />
+                                <input type="checkbox" className="form-check-input" id="termsandconditions" onClick={(e) => { isChecked(e); }} />
                                 <label className="form-check-label" htmlFor="termsandconditions">I Accept All T&C’s</label>
                             </div>
                         </div>

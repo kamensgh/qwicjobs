@@ -1,0 +1,36 @@
+$orange: #F27205;
+
+.jobdetails-banner {
+  background-color: #073145 !important;
+
+  .banner-text {
+    font-weight: 600;
+    color: white;
+  }
+}
+
+.nav-tabs {
+  background: white;
+  padding-top: 10px;
+
+  .nav-item {
+    button {
+      border: unset;
+      padding: 0.5rem 6rem;
+      font-weight: bold;
+      color: #000000;
+
+
+      @media (max-width:576px) {
+            padding: 0.5rem 2rem;
+          
+      }
+
+      &.active {
+        border-color: unset;
+        border-bottom: 3px solid $orange;
+          color: #000000;
+      }
+    }
+  }
+}

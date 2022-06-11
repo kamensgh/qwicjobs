@@ -3,7 +3,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons'
 import { Link } from 'react-router-dom';
 import axios from '../../api/axios';
-import Select from 'react-select'
 const JOBS_URL = 'api/v1/default/service';
 
 
@@ -145,25 +144,28 @@ const Stepone = ({ setPages, setFormData, formData }) => {
                                 >
                                     Profession
                                 </label>
-                                {/* <input
+                                <input
                                     type="text"
-                                    autoComplete='off'
                                     className="form-control"
                                     id="profession"
-                                    placeholder="eg. Nanny"
-                                    onChange={(e) => setFormData({ ...formData, services: e.target.value })}
-                                    value={formData.services}
+                                    list="prof"
+                                    placeholder='eg. Nanny'
                                     required
-                                /> */}
+                                />
+                                <datalist id="prof">
+                                    {jobs.map((item, key) =>
+                                        <option key={key} value={item.label} />
+                                    )}
+                                </datalist>
 
-
+{/* 
                                 {loading ?
                                     <select className='form-control' id="profession" disabled>
                                         <option >Loading jobs...</option>
                                     </select>
                                     :
                                     <Select options={jobs} placeholder={<div>Type to search</div>} required onChange={(e) => setFormData({ ...formData, services: e })} value={formData.services} />
-                                }
+                                } */}
 
                             </div>
                         </div>
