@@ -18,6 +18,8 @@ export const ContextProvider = ({ children }) => {
         const initialValue = JSON.parse(savedinfo);
         return initialValue || "";
     })
+
+    // console.log(userInfo); 
     return (
         <StateContext.Provider value={{ jobs, setJobs, userInfo, setuserInfo}}>
             {children}

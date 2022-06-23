@@ -2,9 +2,11 @@ import React, { useEffect, useRef, useState } from 'react'
 import Spinner from 'react-bootstrap/Spinner'
 import axios from '../../api/axios';
 import { useNavigate } from 'react-router-dom';
+import { useStateContext } from '../../contexts/ContextProvider'
 const LOGIN_URL = 'api/v1/auth/login';
 
 const LoginForm = () => {
+    const { setuserInfo } = useStateContext();
     const numberRef = useRef();
     const errRef = useRef();
     const navigate = useNavigate();
@@ -17,6 +19,7 @@ const LoginForm = () => {
 
     useEffect(() => {
         numberRef.current.focus();
+        localStorage.removeItem("userinfo");
     }, [])
 
     useEffect(() => {
@@ -40,7 +43,9 @@ const LoginForm = () => {
                     }
                 }
             ))
-            console.log(JSON.stringify(response?.data));
+            localStorage.removeItem("userinfo");
+            localStorage.setItem("userinfo", JSON.stringify(response?.data)); 
+            setuserInfo(response?.data)
             setNumber('')
             setPwd('')
             setLoading(false);

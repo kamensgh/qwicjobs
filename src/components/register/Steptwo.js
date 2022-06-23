@@ -44,7 +44,7 @@ const Steptwo = ({ setFormData, formData }) => {
     
   }
 
-  const handleSubmit = async e => {
+  const handleSubmit = e => {
     e.preventDefault();
     setLoading(true);
 
@@ -232,7 +232,7 @@ const Steptwo = ({ setFormData, formData }) => {
 
 
             {loading ?
-              <button className="btn btn-secondary rounded-pill text-nowrap mt-5 mt-md-0 disabled">
+              <button className="btn btn-secondary rounded-pill text-nowrap mt-5 mt-md-0 disabled" >
                 Loading...
                 <Spinner
                   as="span"
@@ -243,7 +243,7 @@ const Steptwo = ({ setFormData, formData }) => {
                 />
               </button>
               :
-              <button className="btn btn-secondary rounded-pill text-nowrap mt-5 mt-md-0">
+              <button className="btn btn-secondary rounded-pill text-nowrap mt-5 mt-md-0" onClick={handleSubmit}>
                 Sign Up  {arrowRight}
               </button>
 

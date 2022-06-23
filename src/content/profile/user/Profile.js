@@ -56,7 +56,7 @@ const Profile = () => {
   }
 
 
-
+  console.log(userInfo);
   return (
     <div className="bg-light">
       <div className="container">
@@ -67,7 +67,7 @@ const Profile = () => {
                 <div className="d-flex flex-wrap justify-content-between align-items-center border-end p-5">
                   <div className="pe-4">
                     <h5 className="fw-bold">{formatDate}</h5>
-                    <h2 className="fw-bold" style={{ textTransform: 'capitalize' }}>Good Evening, {userInfo.data.firstName ?? "NOt yet"}</h2>
+                    <h2 className="fw-bold" style={{ textTransform: 'capitalize' }}>Good Evening, {userInfo.data.firstName ?? "Kwame"}</h2>
                   </div>
                   <div>
                     <img

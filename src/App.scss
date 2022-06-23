@@ -10,6 +10,9 @@ $info: #f27205;
 //font
 $font-family-base: "Montserrat", sans-serif;
 
+ $enable-negative-margins: true;
+
+
 // scss-docs-start container-max-widths
 $container-max-widths: (
   sm: 540px,

@@ -1,13 +1,63 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import './profile.scss'
 import { Link } from 'react-router-dom';
 import ProgressBar from 'react-bootstrap/ProgressBar'
 import { Row } from 'react-bootstrap';
+import Shimmer from 'react-js-loading-shimmer';
+import { useStateContext } from '../../../contexts/ContextProvider';
+import Moment from 'moment';
+import axios from '../../../api/axios';
+const JOBS_URL = 'api/v1/default/service';
+
 
 
 
 const Profile = () => {
   const now = 60;
+  const { userInfo } = useStateContext();
+  const [loading, setloading] = useState(true)
+  const [jobs, setJobs] = useState([]);
+  const formatDate = Moment().format('dddd, MMMM Do')
+  const baseURL = 'https://qwicjobs-api.herokuapp.com'
+
+
+
+  useEffect(() => {
+    getJobs()
+  }, []);
+
+
+  const getJobs = async () => {
+    setloading(true);
+    try {
+      const response = await axios.get(JOBS_URL)
+      const res = response.data.data;
+      let newData = [];
+      newData = res.map(job => ({ value: job.id, label: job.name, src: `${baseURL}/assets/icons/${job.name}.png` }));
+      setJobs(newData)
+      setloading(false);
+    } catch (err) {
+      console.log(err);
+      setloading(false);
+    }
+  }
+
+
+  const jobsPlaceholder = () => {
+    const n = 20;
+    return [...Array(n)].map((elem, index) =>
+      <div className='mb-3' key={index}>
+        <div className='d-flex'>
+          <div style={{ width: '30px' }}>
+            <Shimmer height={"22px"} />
+          </div>
+          <div className='w-100 ms-3'>
+            <Shimmer height={"25px"} />
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   
   return (
@@ -18,11 +68,11 @@ const Profile = () => {
             <div className='col-12 col-md-6 col-xl-5'>
               <div className="h-100 d-flex flex-column justify-content-center">
                 <h4 className='mb-3 fw-bold text-white'>
-                  Sunday, February 6th
+                  {formatDate}
                 </h4>
-                <h1 className="banner-text mb-0 display-5">
+                <h1 className="banner-text mb-0 display-5" style={{ textTransform: 'capitalize' }}>
                   Good Evening, <br/>
-                   Mercy Asare
+                  {"Kwame"}
                 </h1>
 
            
@@ -49,72 +99,39 @@ const Profile = () => {
             <div className='col-12 col-md-3 d-lg-block d-none'>
 
               <div className='card h-auto p-4'> 
-                <a href='/' className='text-decoration-none d-flex mb-3 align-items-center justify-content-start'>
-                  <span className='me-3'>   <img
-                    src={`${process.env.PUBLIC_URL}/images/svg/worker-illustration.svg`}
-                    alt="rate"
-                    width={30}
-                  /> </span>
-                  Aircondition Installers 
-                </a>
-                <a href='/' className='text-decoration-none d-flex mb-3 align-items-center justify-content-start'>
-                  <span className='me-3'>   <img
-                    src={`${process.env.PUBLIC_URL}/images/svg/worker-illustration.svg`}
-                    alt="rate"
-                    width={30}
-                  /> </span>
-                  Barber 
-                </a>
-                <a href='/' className='text-decoration-none d-flex mb-3 align-items-center justify-content-start'>
-                  <span className='me-3'>   <img
-                    src={`${process.env.PUBLIC_URL}/images/svg/worker-illustration.svg`}
-                    alt="rate"
-                    width={30}
-                  /> </span>
-                  Carpenter
-                </a>
-
-                <a href='/' className='text-decoration-none d-flex mb-3 align-items-center justify-content-start'>
-                  <span className='me-3'>   <img
-                    src={`${process.env.PUBLIC_URL}/images/svg/worker-illustration.svg`}
-                    alt="rate"
-                    width={30}
-                  /> </span>
-                  Caterer
-                </a>
-                <a href='/' className='text-decoration-none d-flex mb-3 align-items-center justify-content-start'>
-                  <span className='me-3'>   <img
-                    src={`${process.env.PUBLIC_URL}/images/svg/worker-illustration.svg`}
-                    alt="rate"
-                    width={30}
-                  /> </span>
-                  Chauffeur
-                </a>
-                <a href='/' className='text-decoration-none d-flex align-items-center justify-content-start'>
-                  <span className='me-3'>   <img
-                    src={`${process.env.PUBLIC_URL}/images/svg/worker-illustration.svg`}
-                    alt="rate"
-                    width={30}
-                  /> </span>
-                  Child care Givers
-                </a>
-
-
-
+                {jobs ?
+                  (jobs.map((job) =>
+                    <a
+                      key={job.value}
+                      href="/"
+                      className="text-decoration-none d-flex mb-3 align-items-center justify-content-start"
+                    >
+                      <span className="me-3">
+                        <img
+                          src={job.src}
+                          alt="rate"
+                          width={30}
+                        />
+                      </span>
+                      {job.label}
+                    </a>
+                  ))
+                  :
+                  jobsPlaceholder()
+                }
               </div>
-
             </div>
             <div className='col-12 col-md-7 col-lg-6'>
               <div className='card h-auto mb-4'>
                 <div className='p-4 d-flex align-items-center border-bottom'>
-                  <di className="me-3">
+                  <div className="me-3">
                     <img
                       src={`${process.env.PUBLIC_URL}/images/avatar3.png`}
                       alt="rate"
                       width={60}
                       className="rounded-circle"
                     />
-                  </di>
+                  </div>
                   <div>
                     <h4 className='mb-0'>Maxwell Agapong</h4>
                     <span className='small'>Posted on 5th January 2022</span>
@@ -132,7 +149,7 @@ const Profile = () => {
                 </div>
                 <div className='p-4 '>
                   <div className='d-flex justify-content-between'>
-                    <div><button class="btn mt-4 mt-md-0 rounded-pill">Share</button></div>
+                    <div><button className="btn mt-4 mt-md-0 rounded-pill">Share</button></div>
                     <div>
                       <Link to="/jobdetails" className="btn mt-4 mt-md-0 rounded-pill btn-info">
                         More details
@@ -145,13 +162,13 @@ const Profile = () => {
               </div>
               <div className='card h-auto mb-4'>
                 <div className='p-4 d-flex align-items-center border-bottom'>
-                  <di className="me-3">
+                  <div className="me-3">
                     <img
                       src={`${process.env.PUBLIC_URL}/images/avatar3.png`}
                       alt="rate"
                       width={60}
                     />
-                  </di>
+                  </div>
                   <div>
                     <h4 className='mb-0'>Maxwell Agapong</h4>
                     <span className='small'>Posted on 5th January 2022</span>
@@ -169,8 +186,8 @@ const Profile = () => {
                 </div>
                 <div className='p-4 '>
                   <div className='d-flex justify-content-between'>
-                    <div><button class="btn mt-4 mt-md-0 rounded-pill">Share</button></div>
-                    <div><button class="btn mt-4 mt-md-0 rounded-pill btn-info">More details</button></div>
+                    <div><button className="btn mt-4 mt-md-0 rounded-pill">Share</button></div>
+                    <div><button className="btn mt-4 mt-md-0 rounded-pill btn-info">More details</button></div>
                   </div>
 
                 </div>
@@ -238,7 +255,7 @@ const Profile = () => {
                 </div>
 
                 <div className='text-center py-4'>
-                  <button class="btn mt-4 mt-md-0 rounded-pill btn-sm btn-info">Post a Job</button>
+                  <button className="btn mt-4 mt-md-0 rounded-pill btn-sm btn-info">Post a Job</button>
                 </div>
 
               </div>

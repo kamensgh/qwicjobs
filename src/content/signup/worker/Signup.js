@@ -58,7 +58,7 @@ const Signup = () => {
 
   useEffect(() => {
 
-    getAds()
+    // getAds()
 
   }, [])
 
@@ -102,8 +102,8 @@ const Signup = () => {
                   </div>
 
                   <div className='text-center ad-text'>
-                    <h4>{addata.header}</h4>
-                    <p className='mb-0 fw-light'>{addata.body}</p>
+                    <h4>{addata.header ? addata.header : "Kakum National Park - Ghana"}</h4>
+                    <p className='mb-0 fw-light'>{addata.body ? addata.body : "The Akosombo Dam, also known as the Volta Dam, is a hydroelectric dam on the Volta River in southeastern Ghana in the Akosombo gorge and part of the Volta River Authority. The construction of the dam flooded part of the Volta River Basin, and led to the subsequent creation of Lake Volta."}</p>
                   </div>
 
                 </div>

@@ -81,8 +81,9 @@ function ClientForm() {
         else {
             try {
                 const response = await axios.post(REGISTER_URL, data);
-                localStorage.removeItem("userinfo"); 
+                localStorage.removeItem("userinfo");
                 localStorage.setItem("userinfo", JSON.stringify(response?.data));
+                setuserInfo(response?.data)
                 setLoading(false);
                 navigate('/userprofile', { replace: true });
 

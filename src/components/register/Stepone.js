@@ -83,7 +83,6 @@ const Stepone = ({ setPages, setFormData, formData }) => {
             setPages(2)
         }
 
-
     }
 
 
