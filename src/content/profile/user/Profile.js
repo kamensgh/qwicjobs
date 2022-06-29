@@ -6,6 +6,7 @@ import { useStateContext } from '../../../contexts/ContextProvider';
 import Shimmer from 'react-js-loading-shimmer';
 import Moment from 'moment';
 import axios from '../../../api/axios';
+import uuid from 'react-uuid'
 const JOBS_URL = 'api/v1/default/service';
 
 
@@ -18,6 +19,8 @@ const Profile = () => {
   const [jobs, setJobs] = useState([]);
   const formatDate = Moment().format('dddd, MMMM Do')
   const baseURL = 'https://qwicjobs-api.herokuapp.com'
+
+
 
   useEffect(() => {
     getJobs()
@@ -56,7 +59,8 @@ const Profile = () => {
   }
 
 
-  console.log(userInfo);
+
+
   return (
     <div className="bg-light">
       <div className="container">
@@ -136,8 +140,8 @@ const Profile = () => {
                     </div>
                     <div className='footer border-top pt-3 mb-1 mt-5 text-muted'>
                       <div className='d-flex mb-1 justify-content-between'>
-                         <Link to="/">
-                          Privacy  
+                        <Link to="/">
+                          Privacy
                         </Link>	&#8226;
                         <Link to="/">Advertising</Link>	&#8226;
                         <Link to="/">Terms of use</Link>	&#8226;
@@ -168,6 +172,9 @@ const Profile = () => {
                 </div>
 
                 <div className="px-4 mt-2">
+
+
+
                   <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-3">
                     <div className="col mb-4">
                       <div className="card">
