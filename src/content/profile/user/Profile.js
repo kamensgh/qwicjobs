@@ -1,65 +1,63 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from "react";
 import "./profile.scss";
 import { Link } from "react-router-dom";
 import ProgressBar from "react-bootstrap/ProgressBar";
-import { useStateContext } from '../../../contexts/ContextProvider';
-import Shimmer from 'react-js-loading-shimmer';
-import Moment from 'moment';
-import axios from '../../../api/axios';
-import uuid from 'react-uuid'
-const JOBS_URL = 'api/v1/default/service';
-
-
-
+import Shimmer from "react-js-loading-shimmer";
+import Moment from "moment";
+import { axiosRequest } from "../../../api/axios";
+import { useCookies } from "react-cookie";
+const JOBS_URL = "api/v1/default/service";
 
 const Profile = () => {
   const now = 60;
-  const { userInfo } = useStateContext();
-  const [loading, setloading] = useState(true)
+  const [loading, setloading] = useState(true);
   const [jobs, setJobs] = useState([]);
-  const formatDate = Moment().format('dddd, MMMM Do')
-  const baseURL = 'https://qwicjobs-api.herokuapp.com'
+  const formatDate = Moment().format("dddd, MMMM Do");
+  const baseURL = "https://qwicjobs-api.herokuapp.com";
+  const [cookies] = useCookies(["user_login_cookies"]);
+  const user_cookies = cookies.user_login_cookies;
+  console.log(user_cookies);
 
 
 
   useEffect(() => {
-    getJobs()
+    getJobs();
   }, []);
 
   const getJobs = async () => {
     setloading(true);
     try {
-      const response = await axios.get(JOBS_URL)
+      const response = await axiosRequest.get(JOBS_URL);
       const res = response.data.data;
       let newData = [];
-      newData = res.map(job => ({ value: job.id, label: job.name, src: `${baseURL}/assets/icons/${job.name}.png` }));
-      setJobs(newData)
+      newData = res.map((job) => ({
+        value: job.id,
+        label: job.name,
+        src: `${baseURL}/assets/icons/${job.name}.png`,
+      }));
+      setJobs(newData);
       setloading(false);
     } catch (err) {
       console.log(err);
       setloading(false);
     }
-  }
-
+  };
 
   const jobsPlaceholder = () => {
     const n = 20;
-    return [...Array(n)].map((elem, index) =>
-      <div className='mb-3' key={index}>
-        <div className='d-flex'>
-          <div style={{ width: '30px' }}>
+    return [...Array(n)].map((elem, index) => (
+      <div className="mb-3" key={index}>
+        <div className="d-flex">
+          <div style={{ width: "30px" }}>
             <Shimmer height={"22px"} />
           </div>
-          <div className='w-100 ms-3'>
+          <div className="w-100 ms-3">
             <Shimmer height={"25px"} />
           </div>
         </div>
       </div>
-    );
-  }
-
-
-
+    ));
+  };
 
   return (
     <div className="bg-light">
@@ -71,7 +69,12 @@ const Profile = () => {
                 <div className="d-flex flex-wrap justify-content-between align-items-center border-end p-5">
                   <div className="pe-4">
                     <h5 className="fw-bold">{formatDate}</h5>
-                    <h2 className="fw-bold" style={{ textTransform: 'capitalize' }}>Good Evening, {userInfo.data.firstName ?? "Kwame"}</h2>
+                    <h2
+                      className="fw-bold"
+                      style={{ textTransform: "capitalize" }}
+                    >
+                      Good Evening, {user_cookies.firstName}
+                    </h2>
                   </div>
                   <div>
                     <img
@@ -115,42 +118,33 @@ const Profile = () => {
             <div className="row g-0">
               <div className="col-12 col-md-3">
                 <div className="mt-2 h-100 p-4">
-                  <div className='jobs-container'>
-                    <div className='jobs-list'>
-                      {jobs ?
-                        (jobs.map((job) =>
-                          <a
-                            key={job.value}
-                            href="/"
-                            className="text-decoration-none d-flex mb-3 align-items-center justify-content-start"
-                          >
-                            <span className="me-3">
-                              <img
-                                src={job.src}
-                                alt="rate"
-                                width={30}
-                              />
-                            </span>
-                            {job.label}
-                          </a>
-                        ))
-                        :
-                        jobsPlaceholder()
-                      }
+                  <div className="jobs-container">
+                    <div className="jobs-list">
+                      {jobs
+                        ? jobs.map((job) => (
+                            <a
+                              key={job.value}
+                              href="/"
+                              className="text-decoration-none d-flex mb-3 align-items-center justify-content-start"
+                            >
+                              <span className="me-3">
+                                <img src={job.src} alt="rate" width={30} />
+                              </span>
+                              {job.label}
+                            </a>
+                          ))
+                        : jobsPlaceholder()}
                     </div>
-                    <div className='footer border-top pt-3 mb-1 mt-5 text-muted'>
-                      <div className='d-flex mb-1 justify-content-between'>
-                        <Link to="/">
-                          Privacy
-                        </Link>	&#8226;
-                        <Link to="/">Advertising</Link>	&#8226;
-                        <Link to="/">Terms of use</Link>	&#8226;
+                    <div className="footer border-top pt-3 mb-1 mt-5 text-muted">
+                      <div className="d-flex mb-1 justify-content-between">
+                        <Link to="/">Privacy</Link> &#8226;
+                        <Link to="/">Advertising</Link> &#8226;
+                        <Link to="/">Terms of use</Link> &#8226;
                         <Link to="/">More</Link>
                       </div>
                       <div>
                         <span> Qwicjobs © 2022</span>
                       </div>
-
                     </div>
                   </div>
                 </div>
@@ -195,7 +189,10 @@ const Profile = () => {
                             serve with my skills and training acquired. As a
                             professional nurse, I love giving care.
                           </p>
-                          <Link to="/workerDetails" className="stretched-link"></Link>
+                          <Link
+                            to="/workerDetails"
+                            className="stretched-link"
+                          ></Link>
                         </div>
                       </div>
                     </div>

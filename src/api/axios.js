@@ -1,6 +1,11 @@
-import React from 'react'
-import axios from 'axios';
+import axios from "axios";
 
-export default axios.create({
-    baseURL: 'https://qwicjobs-api.herokuapp.com/'
-})
+const BASE_URL = "https://qwicjobs-api.herokuapp.com/";
+
+export const axiosRequest = axios.create({
+  baseURL: BASE_URL,
+});
+// export const userRequest = axios.create({
+//     baseURL: BASE_URL,
+//     headers: {token: `Bearer ${TOKEN}`}
+// })
