@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
@@ -17,6 +18,26 @@ ReactDOM.render(
     </Provider>
   </React.StrictMode>,
   document.getElementById("root")
+=======
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from './App';
+import { BrowserRouter } from 'react-router-dom';
+import { ContextProvider } from './contexts/ContextProvider'
+
+
+
+
+ReactDOM.render(
+  <ContextProvider>
+    <React.StrictMode>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </React.StrictMode>
+  </ContextProvider>,
+  document.getElementById('root')
+>>>>>>> 44de518c5a2cd764ece0eca0119b28a78cc9d1fb
 );
 
 // If you want to start measuring performance in your app, pass a function
