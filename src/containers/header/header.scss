@@ -1,0 +1,33 @@
+nav{
+    padding-top: 1.2rem !important;
+    padding-bottom: 1.2rem !important;
+    
+     .navbar-brand{
+
+     }
+
+     .navbar-nav{
+
+
+        .nav-link{
+            color: #000000 !important;
+            font-weight: bold;
+        }
+     }
+
+
+
+
+     .dropdown-menu{
+        padding: 0;
+
+        .dropdown-item{
+            padding: 0;
+        }
+
+
+        &.show {
+            display: inline-flex;
+        }
+     }
+}

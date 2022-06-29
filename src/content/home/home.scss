@@ -1,0 +1,50 @@
+.home-banner{
+    background-color: #083245;
+    height: 570px;
+
+    @media (max-width:768px) {
+
+        height: 100%;
+        padding-top: 47px;
+      
+  }
+
+
+    .banner-text{
+        font-weight: 600;
+        color: white;
+    }
+}
+
+.become-a-qwicjobber{
+    background-image: url(./../../../public/images/woman-smiling-on-phone.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 800px;
+    display: flex;
+    align-items: center;
+
+
+    @media (max-width:768px) {
+
+          height: 500px;
+        
+    }
+}
+
+.carousel-caption{
+    bottom: 7.25rem;
+    left: 7%;
+}
+
+.carousel-item{
+    img{
+        height: 550px;
+
+        @media (max-width:768px) {
+
+            height: 450px;
+          
+      }
+    }
+}

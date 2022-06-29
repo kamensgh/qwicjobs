@@ -1,0 +1,191 @@
+@import "bootstrap/scss/bootstrap.scss";
+
+// Colors
+$primary: #083245;
+$secondary: #66b100;
+$white: #fff;
+$orange: #f27205;
+$danger: #ff0000;
+$info: #f27205;
+//font
+$font-family-base: "Montserrat", sans-serif;
+
+ $enable-negative-margins: true;
+
+
+// scss-docs-start container-max-widths
+$container-max-widths: (
+  sm: 540px,
+  md: 720px,
+  lg: 960px,
+  xl: 1140px,
+  xxl: 1534px,
+) !default;
+// scss-docs-end container-max-widths
+
+:root {
+  --breakpoint-sm: 576px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 992px;
+  --breakpoint-xl: 1200px;
+  --bs-body-color: #083245;
+}
+body {
+  font-family: $font-family-base !important;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+//buttons
+.btn {
+  border-radius: 9px;
+  padding: 9px 35px !important;
+  white-space: nowrap;
+
+  &:focus {
+    box-shadow: none !important;
+    outline: 0 !important;
+  }
+}
+
+.btn-primary {
+  color: #fff !important;
+  background-color: $primary !important;
+  border-color: $primary !important;
+}
+
+.btn-secondary {
+  color: #fff !important;
+  background-color: $secondary !important;
+  border-color: $secondary !important;
+}
+
+.btn-info {
+  color: rgb(255, 255, 255) !important;
+  background-color: $orange !important;
+  border-color: $orange !important;
+}
+
+//backgrounds
+.bg-primary {
+  background-color: $primary !important;
+}
+
+.bg-secondary {
+  background-color: $secondary !important;
+}
+
+.fw-bold {
+  font-weight: 600 !important;
+}
+
+.text-success {
+  color: #66b100 !important;
+}
+
+.text-orange,
+.text-info {
+  color: $orange !important;
+}
+
+.border-info {
+  border-color: #f27203 !important;
+}
+
+a {
+  color: $primary !important;
+  text-decoration: none !important;
+}
+
+.section {
+  padding: 92px 0 92px;
+}
+
+$objectLineheight: 0, 1, 2, inherit, initial, normal, revert, unset;
+
+@each $tuple in $objectLineheight {
+  .line-height-#{($tuple)} {
+    line-height: $tuple;
+  }
+}
+
+.line-height-1half {
+  line-height: 1.5;
+}
+
+//Form
+.form-label {
+  font-weight: 600;
+  font-size: small;
+}
+
+.form-control {
+  padding: 0.55rem 0.75rem;
+  border-color: #e2e2e2;
+  border-radius: 11px;
+
+  &:focus {
+    box-shadow: none !important;
+    outline: 0 !important;
+    border-color: #66b101 !important;
+  }
+
+  &::placeholder {
+    color: #cdd2d7;
+  }
+}
+
+.form-check-input:focus {
+  border-color: unset;
+  outline: 0;
+  box-shadow: none;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+//Modals
+.modal-backdrop {
+  background-color: #083245;
+
+  &.show {
+    opacity: 0.97;
+  }
+}
+
+.signup-quicjobber {
+  height: 250px;
+  width: 290px;
+  background-color: $secondary;
+  padding: 20px 35px;
+  display: flex;
+  align-items: center;
+}
+
+.find-quicjobber {
+  height: 250px;
+  width: 290px;
+  background-color: $orange;
+  padding: 20px 35px;
+  display: flex;
+  align-items: center;
+}
+
+input[type="file"] {
+  display: none;
+}
+
+.pointer {
+  cursor: pointer !important;
+}
