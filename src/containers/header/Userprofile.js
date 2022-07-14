@@ -2,7 +2,7 @@ import React from "react";
 import { Navbar, Container, Nav, Dropdown } from "react-bootstrap";
 import Logo from "../../logo.svg";
 import "./header.scss";
-// import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useCookies } from "react-cookie";
 
 const Userprofile = () => {
@@ -16,9 +16,9 @@ const Userprofile = () => {
     <>
       <Navbar expand="lg" className="shadow-sm">
         <Container>
-          <Navbar.Brand href="/">
+          <Link className="navbar-brand" to="/">
             <img src={Logo} alt="logo" width={170} />
-          </Navbar.Brand>
+          </Link>
           <Navbar.Toggle aria-controls="navbarScroll" />
           <Navbar.Collapse id="navbarScroll">
             <Nav className="ms-auto my-2 my-lg-0" navbarScroll>

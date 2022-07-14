@@ -7,6 +7,7 @@ import Loader from "react-loaders";
 import { axiosRequest } from "../../../api/axios";
 const AD_URL = "api/v1/featured-image";
 
+
 const Signup = () => {
   const [adurl, setAdurl] = useState(
     `${process.env.PUBLIC_URL}/images/ads/akosombo.png`
@@ -15,22 +16,22 @@ const Signup = () => {
     `${process.env.PUBLIC_URL}/images/ads/logo.png`
   );
   const [addata, setAddata] = useState({});
-  const [loader, setLoader] = useState(false);
+  const [adsloader, setAdsLoader] = useState(true);
 
   useEffect(() => {
-    // getAds()
+    getAds()
   }, []);
 
   const getAds = async () => {
-    setLoader(true);
+    setAdsLoader(true);
     try {
       const response = await axiosRequest.get(AD_URL);
       const data = response?.data.data[0];
       setAddata(data);
-      setLoader(false);
+      setAdsLoader(false);
     } catch (err) {
       console.log(err.response);
-      setLoader(false);
+      setAdsLoader(false);
     }
   };
 
@@ -38,36 +39,38 @@ const Signup = () => {
     <div className="no-scroll-wrapper">
       <div className="row h-100 g-0">
         <div className="col-12 col-lg d-none d-lg-block">
-          <div className="position-relative">
-            <Loader
-              type="ball-scale-ripple-multiple"
-              className={`${addata ? "d-none" : ""}`}
-            />
-            <div
-              className="ad-section"
-              style={{ backgroundImage: `url(${adurl})` }}
-            >
-              <div className="ad-caption">
-                <div className="d-flex justify-content-center align-items-center">
-                  <div className="me-4">
-                    <img src={adlogourl} alt="rate" width={100} className="" />
-                  </div>
+          <div className="position-relative h-100">
+            {adsloader ?
+              <Loader
+                type="ball-scale-ripple-multiple"
+              />
+              :
+              <div
+                className="ad-section"
+                style={{ backgroundImage: `url(${adurl})` }}
+              >
+                <div className="ad-caption">
+                  <div className="d-flex justify-content-center align-items-center">
+                    <div className="me-4">
+                      <img src={adlogourl} alt="rate" width={100} className="" />
+                    </div>
 
-                  <div className="text-center ad-text">
-                    <h4>
-                      {addata.header
-                        ? addata.header
-                        : "Kakum National Park - Ghana"}
-                    </h4>
-                    <p className="mb-0 fw-light">
-                      {addata.body
-                        ? addata.body
-                        : "The Akosombo Dam, also known as the Volta Dam, is a hydroelectric dam on the Volta River in southeastern Ghana in the Akosombo gorge and part of the Volta River Authority. The construction of the dam flooded part of the Volta River Basin, and led to the subsequent creation of Lake Volta."}
-                    </p>
+                    <div className="text-center ad-text">
+                      <h4>
+                        {addata.header
+                          ? addata.header
+                          : "Kakum National Park - Ghana"}
+                      </h4>
+                      <p className="mb-0 fw-light">
+                        {addata.body
+                          ? addata.body
+                          : "The Akosombo Dam, also known as the Volta Dam, is a hydroelectric dam on the Volta River in southeastern Ghana in the Akosombo gorge and part of the Volta River Authority. The construction of the dam flooded part of the Volta River Basin, and led to the subsequent creation of Lake Volta."}
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
+            }
           </div>
         </div>
         <div className="col-12 col-lg-6 col-xl-5">

@@ -17,7 +17,7 @@ const Signup = () => {
   );
   const [addata, setAddata] = useState({});
 
-  const [loader, setLoader] = useState(false);
+  const [adsloader, setAdsLoader] = useState(true);
 
   const [pages, setPages] = useState(1);
   const [formData, setFormData] = useState({
@@ -45,7 +45,7 @@ const Signup = () => {
       residence: "",
       genderId: 0,
     },
-    services: [3, 6, 8],
+    services: [],
     hasHealthCondition: false,
   });
 
@@ -64,32 +64,32 @@ const Signup = () => {
   };
 
   useEffect(() => {
-    // getAds()
+    getAds()
   }, []);
 
   const getAds = async () => {
-    setLoader(true);
-    // try {
-    //   const response = await publicRequest.get(AD_URL);
-    //   const data = response?.data.data[0];
-    //   console.log(data);
-    //   setAddata(data);
-    //   setLoader(false);
-    // } catch (err) {
-    //   console.log(err.response);
-    //   setLoader(false);
-    // }
+    setAdsLoader(true);
+    try {
+      const response = await axiosRequest.get(AD_URL);
+      const data = response?.data.data[0];
+      setAddata(data);
+      setAdsLoader(false);
+    } catch (err) {
+      console.log(err.response);
+      setAdsLoader(false);
+    }
   };
 
   return (
     <div className="no-scroll-wrapper">
       <div className="row h-100 g-0">
         <div className="col-12 col-lg d-none d-lg-block">
-          <div className="position-relative">
+          <div className="position-relative h-100">
+            {adsloader ? 
             <Loader
               type="ball-scale-ripple-multiple"
-              className={`${!addata ? "d-none" : ""}`}
             />
+            :
             <div
               className="ad-section"
               style={{ backgroundImage: `url(${adurl})` }}
@@ -115,6 +115,7 @@ const Signup = () => {
                 </div>
               </div>
             </div>
+            }
           </div>
         </div>
         <div className="col-12 col-lg-6 col-xl-6">

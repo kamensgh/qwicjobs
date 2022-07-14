@@ -4,6 +4,11 @@ import { faArrowRight, faC } from "@fortawesome/free-solid-svg-icons";
 import { Link, useNavigate } from "react-router-dom";
 import Spinner from "react-bootstrap/Spinner";
 import { axiosRequest } from "../../api/axios";
+import { registerStart, registerSuccess, registerFailure } from "../../redux/userRedux";
+import { useDispatch } from "react-redux";
+import { useCookies } from "react-cookie";
+const JOBS_URL = "api/v1/default/service";
+
 
 const arrowRight = <FontAwesomeIcon icon={faArrowRight} />;
 const REGISTER_URL = "api/v1/auth/register/provider";
@@ -15,10 +20,20 @@ const Steptwo = ({ setFormData, formData }) => {
     `${process.env.PUBLIC_URL}/images/avatar2.png`
   );
   const [loading, setLoading] = useState(false);
-  const [selectEd, setSelectEd] = useState([]);
-  const [errMsg, setErrMsg] = useState("");
+  const [submitloader, setSubmitLoader] = useState(false);
+  const [cookies, setCookie] = useCookies(["user-cookie"]);
 
-  console.log(formData);
+
+  const [selectEd, setSelectEd] = useState([]);
+  const [selectOtherJobs, setSelectOtherJobs] = useState([]);
+
+  const [errMsg, setErrMsg] = useState("");
+  const [jobs, setJobs] = useState([]);
+  const dispatch = useDispatch();
+
+
+
+  
   const onChangePicture = (e) => {
     if (e.target.files[0]) {
       const reader = new FileReader();
@@ -26,7 +41,7 @@ const Steptwo = ({ setFormData, formData }) => {
         setimageurl(reader.result);
         setFormData({
           ...formData,
-          bio: { ...formData.bio, profilePicture: reader.result },
+          bio: { ...formData.bio, profilePicture: e.target.files[0].name },
         });
       });
       reader.readAsDataURL(e.target.files[0]);
@@ -36,45 +51,96 @@ const Steptwo = ({ setFormData, formData }) => {
   const getEd = (e) => {
     const { checked, value } = e.currentTarget;
     setSelectEd((prev) =>
-      checked ? [...prev, value] : prev.filter((val) => val !== value)
+      checked ? [...prev, parseInt(value)] : prev.filter((val) => val !== parseInt(value))
     );
+
+    setFormData({
+      ...formData,
+      provider: {
+        ...formData.provider,
+        educationalLevelId: selectEd,
+      },
+    })
   };
 
-  const handleSubmit = (e) => {
+  const setOtherJobs = (e) => {
+    let value = e.target.value
+
+    setSelectOtherJobs((prev) =>
+      value ? [...prev, parseInt(value)] : prev.filter((val) => val !== parseInt(value))
+    );
+
+    setFormData({
+      ...formData,
+      services: selectOtherJobs
+    })
+  }
+
+  useEffect(() => {
+    getJobs();
+  }, []);
+
+  const getJobs = async () => {
+    try {
+      const response = await axiosRequest.get(JOBS_URL);
+      const res = response.data.data;
+      let newData = [];
+      newData = res.map((job) => ({ value: job.id, label: job.name }));
+      setJobs(newData);
+    } catch (err) {
+      console.log(err);
+      setErrMsg("Error loading jobs");
+    }
+  };
+
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
+    setSubmitLoader(true);
 
     console.log(formData);
+    dispatch(registerStart());
+    try {
+      const res = await axiosRequest.post(REGISTER_URL, formData,{
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Credentials': 'true'
+        }
+      })
+      console.log("data", res);
 
-    // try {
-    //   const response = await axiosRequest.post(REGISTER_URL, JSON.stringify({
-    //     formData
-    //   },
-    //     {
-    //       headers: {
-    //         'Access-Control-Allow-Origin': '*',
-    //         'Content-Type': 'application/json',
-    //         'Access-Control-Allow-Credentials': 'true'
-    //       }
-    //     }
-    //   ))
-    //   console.log(JSON.stringify(response?.data));
-    //   setLoading(false);
-    //   navigate('/userprofile', { replace: true });
+      if (res.data.data.id) {
+        console.log("data", res.data.data);
+        let expiry_date = new Date(Date.now() + 86400 * 1000);
+        dispatch(registerSuccess(res.data.data));
+        setCookie("user_login_cookies", res.data.data.user, {
+          path: "/",
+          expires: expiry_date,
+        });
+        console.log(expiry_date);
+        navigate("/workerprofile", { replace: true });
+        setSubmitLoader(false);
+      } else {
+        console.log("is it?", res.data.data.length);
+        setSubmitLoader(false);
+      }
+      return;
 
-    // } catch (err) {
-    //   console.log(err);
-    //   setLoading(false);
-    //   if (!err?.response) {
-    //     setErrMsg('No Server Response')
-    //   } else if (err?.response.status === 400) {
-    //     setErrMsg('Missing phone number or password')
-    //   } else if (!err?.response.status === 401) {
-    //     setErrMsg('Unauthorised')
-    //   } else {
-    //     setErrMsg('Registration failed')
-    //   }
-    // }
+    } catch (err) {
+      console.log(err);
+      dispatch(registerFailure());
+      setSubmitLoader(false);
+      if (!err?.response) {
+        setErrMsg('No Server Response')
+      } else if (err?.response.status === 400) {
+        setErrMsg('Missing phone number or password')
+      } else if (!err?.response.status === 401) {
+        setErrMsg('Unauthorised')
+      } else {
+        setErrMsg('Registration failed')
+      }
+    }
   };
 
   return (
@@ -269,13 +335,46 @@ const Steptwo = ({ setFormData, formData }) => {
                   <div>
                     <ol className="other-services">
                       <li>
-                        <input type="text" />
+                        {loading ?
+                          <select id="profession" disabled>
+                            <option >Loading jobs...</option>
+                          </select>
+                          :
+                          <select id="profession" onChange={setOtherJobs} >
+                            <option value={0}>Select other service  </option>
+                            {jobs.map((item, key) => (
+                              <option key={key} value={item.value}> {item.label} </option>
+                            ))}
+                          </select>
+                        }
                       </li>
                       <li>
-                        <input type="text" />
+                        {loading ?
+                          <select  id="profession" disabled>
+                            <option >Loading jobs...</option>
+                          </select>
+                          :
+                          <select id="profession" onChange={setOtherJobs} >
+                            <option value={0}>Select other service</option>
+                            {jobs.map((item, key) => (
+                              <option key={key} value={item.value}> {item.label} </option>
+                            ))}
+                          </select>
+                        }
                       </li>
                       <li>
-                        <input type="text" />
+                        {loading ?
+                          <select id="profession" disabled>
+                            <option >Loading jobs...</option>
+                          </select>
+                          :
+                          <select id="profession" onChange={setOtherJobs} >
+                            <option value={0}>Select other service</option>
+                            {jobs.map((item, key) => (
+                              <option key={key} value={item.value}> {item.label} </option>
+                            ))}
+                          </select>
+                        }
                       </li>
                     </ol>
                   </div>
@@ -302,7 +401,7 @@ const Steptwo = ({ setFormData, formData }) => {
               </p>
             </div>
 
-            {loading ? (
+            {submitloader ? (
               <button className="btn btn-secondary rounded-pill text-nowrap mt-5 mt-md-0 disabled">
                 Loading...
                 <Spinner

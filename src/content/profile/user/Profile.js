@@ -3,6 +3,7 @@ import "./profile.scss";
 import { Link } from "react-router-dom";
 import ProgressBar from "react-bootstrap/ProgressBar";
 import Shimmer from "react-js-loading-shimmer";
+import Providers from "../../../components/user/ServiceproviderCards"
 import Moment from "moment";
 import { axiosRequest } from "../../../api/axios";
 import { useCookies } from "react-cookie";
@@ -10,13 +11,12 @@ const JOBS_URL = "api/v1/default/service";
 
 const Profile = () => {
   const now = 60;
-  const [loading, setloading] = useState(true);
+  const [loadingJobs, setloadingJobs] = useState(true);
   const [jobs, setJobs] = useState([]);
   const formatDate = Moment().format("dddd, MMMM Do");
   const baseURL = "https://qwicjobs-api.herokuapp.com";
   const [cookies] = useCookies(["user_login_cookies"]);
   const user_cookies = cookies.user_login_cookies;
-  console.log(user_cookies);
 
 
 
@@ -25,7 +25,7 @@ const Profile = () => {
   }, []);
 
   const getJobs = async () => {
-    setloading(true);
+    setloadingJobs(true);
     try {
       const response = await axiosRequest.get(JOBS_URL);
       const res = response.data.data;
@@ -36,10 +36,10 @@ const Profile = () => {
         src: `${baseURL}/assets/icons/${job.name}.png`,
       }));
       setJobs(newData);
-      setloading(false);
+      setloadingJobs(false);
     } catch (err) {
       console.log(err);
-      setloading(false);
+      setloadingJobs(false);
     }
   };
 
@@ -47,9 +47,9 @@ const Profile = () => {
     const n = 20;
     return [...Array(n)].map((elem, index) => (
       <div className="mb-3" key={index}>
-        <div className="d-flex">
+        <div className="d-flex userjobs">
           <div style={{ width: "30px" }}>
-            <Shimmer height={"22px"} />
+            <Shimmer height={"25px"} width={"10px"} /> 
           </div>
           <div className="w-100 ms-3">
             <Shimmer height={"25px"} />
@@ -57,7 +57,7 @@ const Profile = () => {
         </div>
       </div>
     ));
-  };
+  };  
 
   return (
     <div className="bg-light">
@@ -120,7 +120,7 @@ const Profile = () => {
                 <div className="mt-2 h-100 p-4">
                   <div className="jobs-container">
                     <div className="jobs-list">
-                      {jobs
+                      {!loadingJobs
                         ? jobs.map((job) => (
                             <a
                               key={job.value}
@@ -170,184 +170,7 @@ const Profile = () => {
 
 
                   <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-3">
-                    <div className="col mb-4">
-                      <div className="card">
-                        <img
-                          src={`${process.env.PUBLIC_URL}/images/cardimg1.png`}
-                          className="card-img-top"
-                          alt="..."
-                        />
-                        <div className="card-body">
-                          <div>
-                            <h5 className="card-title fw-bold text-center mb-0">
-                              Card title
-                            </h5>
-                            <p className="text-center">Carpenter</p>
-                          </div>
-                          <p className="card-text">
-                            Joining noble helps has given me the opportunity to
-                            serve with my skills and training acquired. As a
-                            professional nurse, I love giving care.
-                          </p>
-                          <Link
-                            to="/workerDetails"
-                            className="stretched-link"
-                          ></Link>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="col mb-4">
-                      <div className="card">
-                        <img
-                          src={`${process.env.PUBLIC_URL}/images/cardimg2.png`}
-                          className="card-img-top"
-                          alt="..."
-                        />
-                        <div className="card-body">
-                          <div>
-                            <h5 className="card-title fw-bold text-center mb-0">
-                              Card title
-                            </h5>
-                            <p className="text-center">Carpenter</p>
-                          </div>
-                          <p className="card-text">
-                            Get free whole health insurance cover from us to
-                            cover you in an event of maternity hospital cover,
-                            Maternity life cover, 24/7 doctor service and more
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="col mb-4">
-                      <div className="card">
-                        <img
-                          src={`${process.env.PUBLIC_URL}/images/cardimg3.png`}
-                          className="card-img-top"
-                          alt="..."
-                        />
-                        <div className="card-body">
-                          <div>
-                            <h5 className="card-title fw-bold text-center mb-0">
-                              Card title
-                            </h5>
-                            <p className="text-center">Carpenter</p>
-                          </div>
-                          <p className="card-text">
-                            This is a longer card with supporting text below as
-                            a natural lead-in to additional content.
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="col mb-4">
-                      <div className="card">
-                        <img
-                          src={`${process.env.PUBLIC_URL}/images/cardimg4.png`}
-                          className="card-img-top"
-                          alt="..."
-                        />
-                        <div className="card-body">
-                          <div>
-                            <h5 className="card-title fw-bold text-center mb-0">
-                              Card title
-                            </h5>
-                            <p className="text-center">Carpenter</p>
-                          </div>
-                          <p className="card-text">
-                            This is a longer card with supporting text below as
-                            a natural lead-in to additional content. This
-                            content is a little bit longer.
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="col mb-4">
-                      <div className="card">
-                        <img
-                          src={`${process.env.PUBLIC_URL}/images/cardimg1.png`}
-                          className="card-img-top"
-                          alt="..."
-                        />
-                        <div className="card-body">
-                          <div>
-                            <h5 className="card-title fw-bold text-center mb-0">
-                              Card title
-                            </h5>
-                            <p className="text-center">Carpenter</p>
-                          </div>
-                          <p className="card-text">
-                            Joining noble helps has given me the opportunity to
-                            serve with my skills and training acquired. As a
-                            professional nurse, I love giving care.
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="col mb-4">
-                      <div className="card">
-                        <img
-                          src={`${process.env.PUBLIC_URL}/images/cardimg2.png`}
-                          className="card-img-top"
-                          alt="..."
-                        />
-                        <div className="card-body">
-                          <div>
-                            <h5 className="card-title fw-bold text-center mb-0">
-                              Card title
-                            </h5>
-                            <p className="text-center">Carpenter</p>
-                          </div>
-                          <p className="card-text">
-                            Get free whole health insurance cover from us to
-                            cover you in an event of maternity hospital cover,
-                            Maternity life cover, 24/7 doctor service and more
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="col mb-4">
-                      <div className="card">
-                        <img
-                          src={`${process.env.PUBLIC_URL}/images/cardimg3.png`}
-                          className="card-img-top"
-                          alt="..."
-                        />
-                        <div className="card-body">
-                          <div>
-                            <h5 className="card-title fw-bold text-center mb-0">
-                              Card title
-                            </h5>
-                            <p className="text-center">Carpenter</p>
-                          </div>
-                          <p className="card-text">
-                            This is a longer card with supporting text below as
-                            a natural lead-in to additional content.
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="col mb-4">
-                      <div className="card">
-                        <img
-                          src={`${process.env.PUBLIC_URL}/images/cardimg4.png`}
-                          className="card-img-top"
-                          alt="..."
-                        />
-                        <div className="card-body">
-                          <div>
-                            <h5 className="card-title fw-bold text-center mb-0">
-                              Card title
-                            </h5>
-                            <p className="text-center">Carpenter</p>
-                          </div>
-                          <p className="card-text">
-                            This is a longer card with supporting text below as
-                            a natural lead-in to additional content. This
-                            content is a little bit longer.
-                          </p>
-                        </div>
-                      </div>
-                    </div>
+                  <Providers/>
                   </div>
                 </div>
               </div>

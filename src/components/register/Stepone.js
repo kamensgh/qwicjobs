@@ -1,6 +1,7 @@
-import { useRef, useEffect, useState } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
+
 import { Link } from "react-router-dom";
 import { axiosRequest } from "../../api/axios";
 const JOBS_URL = "api/v1/default/service";
@@ -11,15 +12,16 @@ const Stepone = ({ setPages, setFormData, formData }) => {
   const errRef = useRef();
 
   const [matchPwd, setMatchPwd] = useState("");
-
   const [errMsg, setErrMsg] = useState("");
-  const [success, setSuccess] = useState(false);
-
   const [jobs, setJobs] = useState([]);
   const [loading, setloading] = useState(true);
 
   const pwd = formData.user.password;
   const gender = formData.bio.genderId;
+
+
+     console.log(formData);
+
 
   useEffect(() => {
     userRef.current.focus();
@@ -43,7 +45,6 @@ const Stepone = ({ setPages, setFormData, formData }) => {
       setJobs(newData);
       setloading(false);
 
-      console.log(jobs);
     } catch (err) {
       console.log(err);
       setErrMsg("Error loading jobs");
@@ -51,12 +52,10 @@ const Stepone = ({ setPages, setFormData, formData }) => {
     }
   };
 
+ 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
-
-    console.log("gender", gender);
-
+  
     const match = pwd === matchPwd;
 
     if (!match) {
@@ -129,28 +128,38 @@ const Stepone = ({ setPages, setFormData, formData }) => {
                 <label htmlFor="profession" className="form-label">
                   Profession
                 </label>
-                <input
+                {/* <input
                   type="text"
                   className="form-control"
                   id="profession"
                   list="prof"
                   placeholder="eg. Nanny"
                   required
+                  onChange={setOtherJobs}
                 />
                 <datalist id="prof">
                   {jobs.map((item, key) => (
-                    <option key={key} value={item.label} />
+                    <option key={key} value={item.label}> {item.value} </option>
                   ))}
-                </datalist>
+                </datalist> */}
 
-                {/* 
-                                {loading ?
-                                    <select className='form-control' id="profession" disabled>
-                                        <option >Loading jobs...</option>
-                                    </select>
-                                    :
-                                    <Select options={jobs} placeholder={<div>Type to search</div>} required onChange={(e) => setFormData({ ...formData, services: e })} value={formData.services} />
-                                } */}
+            
+                
+                {loading ?
+                    <select className='form-control' id="profession" disabled>
+                        <option >Loading jobs...</option>
+                    </select>
+                    :
+                  <select className="form-control" id="profession" onChange={(e) => setFormData({
+                    ...formData,
+                    services: [parseInt(e.target.value)]
+                  })} >
+                    <option value={0}>Select Profession  </option>
+                    {jobs.map((item, key) => (
+                      <option key={key} value={item.value}> {item.label} </option>
+                    ))}
+                  </select>
+                }
               </div>
             </div>
             <div className="col-12 col-md-6">
@@ -285,7 +294,7 @@ const Stepone = ({ setPages, setFormData, formData }) => {
                   onChange={(e) =>
                     setFormData({
                       ...formData,
-                      bio: { ...formData.bio, genderId: e.target.value },
+                      bio: { ...formData.bio, genderId: parseInt(e.target.value) },
                     })
                   }
                 >

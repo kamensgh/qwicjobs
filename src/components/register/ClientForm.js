@@ -2,7 +2,11 @@ import React, { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { axiosRequest } from "../../api/axios";
 import Spinner from "react-bootstrap/Spinner";
+import { useDispatch } from "react-redux";
+import { registerStart, registerSuccess, registerFailure } from "../../redux/userRedux";
+import { useCookies } from "react-cookie";
 const REGISTER_URL = "api/v1/auth/register/client";
+
 
 function ClientForm() {
   const name = useRef();
@@ -19,6 +23,8 @@ function ClientForm() {
 
   const [errMsg, setErrMsg] = useState("");
   const [loading, setLoading] = useState(false);
+  const [cookies, setCookie] = useCookies(["user-cookie"]);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     name.current.focus();
@@ -56,8 +62,6 @@ function ClientForm() {
       },
     };
 
-    console.log(JSON.stringify(data));
-
     const match = pwd === matchPwd;
 
     if (!match) {
@@ -68,22 +72,39 @@ function ClientForm() {
       setLoading(false);
     } else {
       try {
-        const response = await axiosRequest.post(REGISTER_URL, data);
-        localStorage.removeItem("userinfo");
-        localStorage.setItem("userinfo", JSON.stringify(response?.data));
-        setLoading(false);
-        navigate("/userprofile", { replace: true });
+        dispatch(registerStart());
+        const res = await axiosRequest.post(REGISTER_URL, data);
+
+        console.log(res);
+        if (res.data.data.id) {
+          console.log(" data .length", res.data.data);
+          let expiry_date = new Date(Date.now() + 86400 * 1000);
+          dispatch(registerSuccess(res.data.data));
+          setCookie("user_login_cookies", res.data.data, {
+            path: "/",
+            expires: expiry_date,
+          }); 
+          console.log(expiry_date);
+          navigate("/userprofile", { replace: true });
+          setLoading(false);
+        } else {
+          console.log("is it?", res.data.data.length);
+          setLoading(false);
+        }
       } catch (err) {
         console.log(err.response);
+        dispatch(registerFailure());
         setLoading(false);
         if (!err?.response) {
           setErrMsg("No Server Response");
         } else if (err?.response.status === 400) {
           setErrMsg("Missing phone number or password");
-        } else if (!err?.response.status === 401) {
+        } else if (err?.response.status === 401) {
           setErrMsg("Unauthorised");
+        } else if (err?.response.status === 500) {
+          setErrMsg("Phone number or email already exist");
         } else {
-          setErrMsg("Registration failed");
+          setErrMsg("Registration failed, please try again");
         }
         errRef.current.focus();
       }

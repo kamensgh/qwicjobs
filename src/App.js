@@ -32,7 +32,7 @@ function App() {
           <Routes>
             <Route element={<UserLayout />}>
               <Route path="/userprofile" element={<UserProfile />} />
-              <Route path="/workerDetails" element={<WorkerDetails />} />
+              <Route path="/workerDetails/:id" element={<WorkerDetails />} />
               <Route path="*" element={<Navigate to="/userprofile" />} />
             </Route>
             <Route element={<WorkerLayout />}>

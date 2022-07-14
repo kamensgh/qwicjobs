@@ -32,13 +32,12 @@ const LoginForm = () => {
           password: pwd,
         }
       );
-      console.log("res", res.data.data.id);
-
-      if (res.data.data.id) {
-        console.log(" data .length", res.data.data);
+      console.log("res", res);
+      if (res.data.data.user.id) {
+        console.log(" data .length", res.data.data.user);
         let expiry_date = new Date(Date.now() + 86400 * 1000);
-        dispatch(loginSuccess(res.data.data));
-        setCookie("user_login_cookies", res.data.data, {
+        dispatch(loginSuccess(res.data.data.user));
+        setCookie("user_login_cookies", res.data.data.user, {
           path: "/",
           expires: expiry_date,
         });
@@ -50,9 +49,14 @@ const LoginForm = () => {
         setLoading(false);
       }
       return;
-    } catch (error) {
-      //alert(JSON.stringify(error.response.data.message))
-      //console.log(error.response.data.message)
+    } catch (err) {
+      console.log(err.response);
+
+      if (err.response.status === 401) {
+        setErrMsg("User not found");
+      } else {
+        setErrMsg("Something went wrong, please try again");
+      }
       setLoading(false);
     }
   };
@@ -89,7 +93,7 @@ const LoginForm = () => {
           </div>
 
           <p
-            className={errMsg ? "error" : "offscreen"}
+            className={errMsg ? "error mb-0 text-danger small" : "offscreen"}
             ref={errRef}
             arial-live="assertive"
           >
