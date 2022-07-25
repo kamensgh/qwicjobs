@@ -39,13 +39,18 @@ const Steptwo = ({ setFormData, formData }) => {
       const reader = new FileReader();
       reader.addEventListener("load", () => {
         setimageurl(reader.result);
+        // console.log(reader);
         setFormData({
           ...formData,
           bio: { ...formData.bio, profilePicture: e.target.files[0].name },
         });
       });
+      
       reader.readAsDataURL(e.target.files[0]);
     }
+
+
+   
   };
 
   const getEd = (e) => {
@@ -93,6 +98,7 @@ const Steptwo = ({ setFormData, formData }) => {
     }
   };
 
+  console.log(formData);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -178,7 +184,7 @@ const Steptwo = ({ setFormData, formData }) => {
                 <div>
                   <div className="row">
                     <div className="col-6">
-                      <div className="form-check mb-3">
+                      <div className="form-check mb-3 ">
                         <input
                           type="checkbox"
                           onChange={getEd}
@@ -186,7 +192,7 @@ const Steptwo = ({ setFormData, formData }) => {
                           value={1}
                           id="Primary"
                         />
-                        <label className="form-check-label" htmlFor="Primary">
+                        <label className="form-check-label pointer" htmlFor="Primary">
                           Primary
                         </label>
                       </div>
@@ -198,7 +204,7 @@ const Steptwo = ({ setFormData, formData }) => {
                           value={3}
                           id="Senior"
                         />
-                        <label className="form-check-label" htmlFor="Senior">
+                        <label className="form-check-label pointer" htmlFor="Senior">
                           Senior High
                         </label>
                       </div>
@@ -211,7 +217,7 @@ const Steptwo = ({ setFormData, formData }) => {
                           id="Apprentice"
                         />
                         <label
-                          className="form-check-label"
+                          className="form-check-label pointer"
                           htmlFor="Apprentice"
                         >
                           Apprentice
@@ -227,7 +233,7 @@ const Steptwo = ({ setFormData, formData }) => {
                           value={2}
                           id="Junior"
                         />
-                        <label className="form-check-label" htmlFor="Junior">
+                        <label className="form-check-label pointer" htmlFor="Junior">
                           Junior High
                         </label>
                       </div>
@@ -239,7 +245,7 @@ const Steptwo = ({ setFormData, formData }) => {
                           value={5}
                           id="NVTI"
                         />
-                        <label className="form-check-label" htmlFor="NVTI">
+                        <label className="form-check-label pointer" htmlFor="NVTI">
                           NVTI Training
                         </label>
                       </div>
@@ -252,7 +258,7 @@ const Steptwo = ({ setFormData, formData }) => {
                           id="University"
                         />
                         <label
-                          className="form-check-label"
+                          className="form-check-label pointer"
                           htmlFor="University"
                         >
                           University
@@ -325,6 +331,7 @@ const Steptwo = ({ setFormData, formData }) => {
                     }
                     value={formData.provider.aboutSelf}
                     rows={7}
+                    required
                   />
                 </div>
 

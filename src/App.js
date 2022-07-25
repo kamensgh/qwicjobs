@@ -25,9 +25,11 @@ function App() {
   const [cookies] = useCookies();
   console.log("cookies coming from the app", typeof cookies.user_login_cookies);
   const userLoginCookies = cookies.user_login_cookies;
+ 
+
   return (
     <main className="App">
-      {userLoginCookies !== "undefined" && (
+      {userLoginCookies !== undefined && (
         <>
           <Routes>
             <Route element={<UserLayout />}>
@@ -42,8 +44,8 @@ function App() {
             </Route>
           </Routes>
         </>
-      )}{" "}
-      {userLoginCookies === "undefined" && (
+      )}
+      {userLoginCookies === undefined && (
         <>
           <Routes>
             <Route element={<Layout />}>
