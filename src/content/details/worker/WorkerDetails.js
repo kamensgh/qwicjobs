@@ -234,10 +234,107 @@ const WorkerDetails = () => {
                   </div>
                 }
               </div>
+
+              <div className="mt-3">
+                <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-3">
+                  <div className="col mb-4">
+                    <div className="card shadow-none" >
+                      <div className="p-3 d-flex align-items-center">
+                        <img
+                          src={`${process.env.PUBLIC_URL}/images/cardimg1.png`}
+                          className="rounded-circle"
+                          alt="..."
+                          width={60}
+                          height={60}  
+                        />
+                        <div className="ms-3">
+                          <h6 className="fw-bold mb-1">Roland S. Owusu</h6> 
+                          <p className="mb-0 small text-muted">Jan 26, 2022</p>
+                        </div>
+
+                      </div>
+                      <div className="card-body border-top p-3">
+                        <div>
+                          <h6 className="card-title text-orange fw-bold mb-2">
+                            Cleaning and Washing
+                          </h6>
+                          <p className="">3.0</p>
+                        </div>
+                        <p className="card-text small mt-3">
+                          “Finished the job EXTREMELY quickly and his work was perfect. Great communication also. Very happy!
+                        </p>
+                    
+                      </div>
+                    </div>
+                  </div>
+                  <div className="col mb-4">
+                    <div className="card shadow-none" >
+                      <div className="p-3 d-flex align-items-center">
+                        <img
+                          src={`${process.env.PUBLIC_URL}/images/cardimg1.png`}
+                          className="rounded-circle"
+                          alt="..."
+                          width={60}
+                          height={60}
+                        />
+                        <div className="ms-3">
+                          <h6 className="fw-bold mb-1">Roland S. Owusu</h6>
+                          <p className="mb-0 small text-muted">Jan 26, 2022</p>
+                        </div>
+
+                      </div>
+                      <div className="card-body border-top p-3">
+                        <div>
+                          <h6 className="card-title text-orange fw-bold mb-2">
+                            Cleaning and Washing
+                          </h6>
+                          <p className="">3.0</p>
+                        </div>
+                        <p className="card-text small mt-3">
+                          “Finished the job EXTREMELY quickly and his work was perfect. Great communication also. Very happy!
+                        </p>
+
+                      </div>
+                    </div>
+                  </div>
+                  <div className="col mb-4">
+                    <div className="card shadow-none" >
+                      <div className="p-3 d-flex align-items-center">
+                        <img
+                          src={`${process.env.PUBLIC_URL}/images/cardimg1.png`}
+                          className="rounded-circle"
+                          alt="..."
+                          width={60}
+                          height={60}
+                        />
+                        <div className="ms-3">
+                          <h6 className="fw-bold mb-1">Roland S. Owusu</h6>
+                          <p className="mb-0 small text-muted">Jan 26, 2022</p>
+                        </div>
+
+                      </div>
+                      <div className="card-body border-top p-3">
+                        <div>
+                          <h6 className="card-title text-orange fw-bold mb-2">
+                            Cleaning and Washing
+                          </h6>
+                          <p className="">3.0</p>
+                        </div>
+                        <p className="card-text small mt-3">
+                          “Finished the job EXTREMELY quickly and his work was perfect. Great communication also. Very happy!
+                        </p>
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
+
+   
     </>
   );
 };

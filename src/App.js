@@ -29,7 +29,7 @@ function App() {
 
   return (
     <main className="App">
-      {userLoginCookies !== undefined && (
+      {userLoginCookies !== "undefined" && (
         <>
           <Routes>
             <Route element={<UserLayout />}>
@@ -45,7 +45,7 @@ function App() {
           </Routes>
         </>
       )}
-      {userLoginCookies === undefined && (
+      {userLoginCookies === "undefined" && (
         <>
           <Routes>
             <Route element={<Layout />}>

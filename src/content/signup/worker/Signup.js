@@ -33,8 +33,7 @@ const Signup = () => {
     },
     provider: {
       aboutSelf: "",
-      cityId: 1,
-      educationalLevelId: [],
+      cityId: 1
     },
     bio: {
       dob: "",
@@ -47,6 +46,7 @@ const Signup = () => {
     },
     services: [],
     hasHealthCondition: false,
+    education: []
   });
 
   const registerForms = () => {

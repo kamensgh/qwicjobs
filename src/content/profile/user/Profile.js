@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import ProgressBar from "react-bootstrap/ProgressBar";
 import Shimmer from "react-js-loading-shimmer";
 import Providers from "../../../components/user/ServiceproviderCards"
+import Pagination from "../../../components/Pagination"
+
 import Moment from "moment";
 import { axiosRequest } from "../../../api/axios";
 import { useCookies } from "react-cookie";
@@ -149,7 +151,7 @@ const Profile = () => {
                   </div>
                 </div>
               </div>
-              <div className="col border-start">
+              <div className="col-12 col-md-9 border-start">
                 <div className="d-flex justify-content-md-between flex-wrap justify-content-center py-3 align-items-center px-4">
                   <h6 className="text-success mb-0 fw-bold">
                     Qwikjobbers close to you
@@ -166,12 +168,13 @@ const Profile = () => {
                 </div>
 
                 <div className="px-4 mt-2">
-
-
-
                   <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-3">
                   <Providers/>
                   </div>
+                </div>
+
+                <div>
+                  <Pagination/>
                 </div>
               </div>
             </div>

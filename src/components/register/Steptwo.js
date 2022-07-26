@@ -1,6 +1,6 @@
 import { useRef, useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowRight, faC } from "@fortawesome/free-solid-svg-icons";
+import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { Link, useNavigate } from "react-router-dom";
 import Spinner from "react-bootstrap/Spinner";
 import { axiosRequest } from "../../api/axios";
@@ -48,9 +48,6 @@ const Steptwo = ({ setFormData, formData }) => {
       
       reader.readAsDataURL(e.target.files[0]);
     }
-
-
-   
   };
 
   const getEd = (e) => {
@@ -61,10 +58,7 @@ const Steptwo = ({ setFormData, formData }) => {
 
     setFormData({
       ...formData,
-      provider: {
-        ...formData.provider,
-        educationalLevelId: selectEd,
-      },
+      education: selectEd
     })
   };
 
@@ -104,7 +98,6 @@ const Steptwo = ({ setFormData, formData }) => {
     e.preventDefault();
     setSubmitLoader(true);
 
-    console.log(formData);
     dispatch(registerStart());
     try {
       const res = await axiosRequest.post(REGISTER_URL, formData,{
@@ -114,19 +107,17 @@ const Steptwo = ({ setFormData, formData }) => {
           'Access-Control-Allow-Credentials': 'true'
         }
       })
-      console.log("data", res);
 
       if (res.data.data.id) {
         console.log("data", res.data.data);
         let expiry_date = new Date(Date.now() + 86400 * 1000);
         dispatch(registerSuccess(res.data.data));
-        setCookie("user_login_cookies", res.data.data.user, {
+        setCookie("user_login_cookies", res.data.data, { 
           path: "/",
           expires: expiry_date,
         });
-        console.log(expiry_date);
-        navigate("/workerprofile", { replace: true });
         setSubmitLoader(false);
+        navigate("/workerprofile", { replace: true });
       } else {
         console.log("is it?", res.data.data.length);
         setSubmitLoader(false);
@@ -162,7 +153,7 @@ const Steptwo = ({ setFormData, formData }) => {
                     className="custom-file-upload mb-4"
                   >
                     <div className="img-wrap img-upload pointer">
-                      <img htmlFor="photo-upload" src={imageurl} />
+                      <img htmlFor="photo-upload" src={imageurl} alt="profile" />
                     </div>
                     <input
                       id="photo-upload"
