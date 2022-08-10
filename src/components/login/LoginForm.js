@@ -1,8 +1,8 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import Spinner from "react-bootstrap/Spinner";
 import { axiosRequest } from "../../api/axios";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { loginStart, loginSuccess, loginFailure } from "../../redux/userRedux";
 import { useCookies } from "react-cookie";
 
@@ -21,7 +21,6 @@ const LoginForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    console.log(number, pwd);
 
     try {
       dispatch(loginStart());
@@ -32,25 +31,28 @@ const LoginForm = () => {
           password: pwd,
         }
       );
-      console.log("res", res);
-      if (res.status === 200) {
+      if (Object.keys(res.data.data).length > 0) {   
+        console.log("data.length", res.data.data);
+        let expiry_date = new Date(Date.now() + 86400 * 1000);
         dispatch(loginSuccess(res.data.data.user));
-        const allUserDetails = res.data.data.user;
-        const { BioId, UserType, email, firstName, phoneNumber, surname, userTypeId} = allUserDetails
-        const user = {
-          BioId, UserType, email, firstName, phoneNumber, surname, userTypeId
+        setCookie("user_login_cookies", res.data.data.user, {
+          path: "/",
+          expires: expiry_date,
+        });
+        setLoading(false);
+        if (res.data.data.user.UserType.id === 4){
+          console.log("worker");
+          navigate("/workerprofile", { replace: true }); 
+        } else {
+          console.log("user");
+          navigate("/userprofile", { replace: true }); 
         }
-        localStorage.setItem("currentUser", JSON.stringify(user));
-        if (userTypeId === 4) {
-          navigate("/workerprofile", { replace: true });
-        } else{
-          navigate("/userprofile", { replace: true });
-        }
+      } else {   
+        setErrMsg(res.data.message);
         setLoading(false);
       } 
     } catch (err) {
-      console.log("login error: " + err);
-
+      console.log(err);
       if (err.response.status === 401) {
         setErrMsg("User not found");
       } else {
@@ -72,7 +74,6 @@ const LoginForm = () => {
             <input
               type="number"
               className="form-control"
-              autoComplete="off"
               ref={numberRef}
               placeholder="0244123456"
               onChange={(e) => setNumber(e.target.value)}

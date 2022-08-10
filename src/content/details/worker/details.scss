@@ -23,6 +23,25 @@
   }
 }
 
+
+.slide-enter {
+  transform: translateY(-100%);
+  transition: .5s cubic-bezier(0, 1, 0.5, 1);
+
+  &.slide-enter-active {
+    transform: translateY(0%);
+  }
+}
+
+.slide-leave {
+  transform: translateY(0%);
+  transition: .5s ease-in-out;
+
+  &.slide-leave-active {
+    transform: translateY(-100%);
+  }
+}
+
 // .loading-shimmer{
 //   height: 52px;
 // }

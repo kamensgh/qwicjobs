@@ -19,7 +19,7 @@ const Signup = () => {
 
   const [adsloader, setAdsLoader] = useState(true);
 
-  const [pages, setPages] = useState(1);
+  const [pages, setPages] = useState(2);
   const [formData, setFormData] = useState({
     "user": {
       firstName: "",
@@ -33,7 +33,7 @@ const Signup = () => {
     },
     "provider": {
       aboutSelf: "",
-      cityId: 1,
+      cityId: 1
     },
     "bio": {
       dob: "",
@@ -44,9 +44,9 @@ const Signup = () => {
       residence: "",
       genderId: 0,
     },
-    "services": [],
-    "hasHealthCondition": false,
-    "education":[]
+    services: [],
+    hasHealthCondition: false,
+    education: []
   });
 
   const registerForms = () => {

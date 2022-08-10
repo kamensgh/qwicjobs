@@ -10,8 +10,7 @@ $info: #f27205;
 //font
 $font-family-base: "Montserrat", sans-serif;
 
- $enable-negative-margins: true;
-
+$enable-negative-margins: true;
 
 // scss-docs-start container-max-widths
 $container-max-widths: (
@@ -111,6 +110,10 @@ $objectLineheight: 0, 1, 2, inherit, initial, normal, revert, unset;
   }
 }
 
+.dropdown-item.active, .dropdown-item:active {
+    background-color: transparent;
+}
+
 .line-height-1half {
   line-height: 1.5;
 }
@@ -189,3 +192,93 @@ input[type="file"] {
 .pointer {
   cursor: pointer !important;
 }
+
+//Paginatio
+
+.page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 3rem;
+  max-width: 551px;
+  margin: 3rem auto;
+  border-radius: 0.6rem;
+  background: #ffffff;
+  box-shadow: 0px 3px 6px #00000029;
+  padding: 0;
+
+  &__numbers,
+  &__btn,
+  &__dots {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0.3rem;
+    font-size: 13px;
+    cursor: pointer;
+  }
+
+  &__dots {
+    width: 1.6rem;
+    height: 1.6rem;
+    color: $primary;
+    cursor: initial;
+  }
+
+  &__numbers {
+    width: 1.6rem;
+    height: 1.6rem;
+    border-radius: 0.4rem;
+
+    &:hover {
+      color: #ffffff;
+      background: $secondary;
+    }
+
+    &.active {
+      color: #ffffff;
+      background: $secondary;
+      font-weight: 600;
+      border: 1px solid $secondary;
+    }
+  }
+
+  &__btn {
+    color: $primary;
+    pointer-events: none;
+
+    &.active {
+      color: $primary;
+      pointer-events: initial;
+
+      &:hover {
+        color: $secondary;
+      }
+    }
+  }
+}
+
+
+$object: (contain:contain, cover: cover, fill: fill, scale-down: scale-down);
+
+@each $label,
+$value in $object {
+  .object-fit-#{$label} {
+    object-fit: $value;
+  }
+}
+
+
+
+@for $i from 1 through 10 {
+  .text-truncate-#{$i} {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: $i; /* number of lines to show */
+    line-clamp:$i;
+    -webkit-box-orient: vertical;
+    // height: calc(100vh - #{$i}px);
+  }
+}
+

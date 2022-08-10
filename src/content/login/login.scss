@@ -9,6 +9,10 @@
     align-items: center;
         height: 100vh;
   overflow: auto;
+
+  .btn.dropdown-toggle{
+    padding: unset !important;
+  }
 }
 
 .modal-content{

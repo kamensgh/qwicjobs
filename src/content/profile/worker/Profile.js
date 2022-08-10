@@ -6,7 +6,9 @@ import { Row } from "react-bootstrap";
 import Shimmer from "react-js-loading-shimmer";
 import Moment from "moment";
 import { axiosRequest } from "../../../api/axios";
+import { useCookies } from "react-cookie";
 const JOBS_URL = "api/v1/default/service";
+
 
 const Profile = () => {
   const now = 60;
@@ -14,6 +16,9 @@ const Profile = () => {
   const [jobs, setJobs] = useState([]);
   const formatDate = Moment().format("dddd, MMMM Do");
   const baseURL = "https://qwicjobs-api.herokuapp.com";
+  const [cookies] = useCookies(["user_login_cookies"]);
+  const user_cookies = cookies.user_login_cookies;
+
 
   useEffect(() => {
     getJobs();
@@ -67,7 +72,7 @@ const Profile = () => {
                   style={{ textTransform: "capitalize" }}
                 >
                   Good Evening, <br />
-                  {"Kwame"}
+                  {user_cookies.firstName}
                 </h1>
               </div>
             </div>

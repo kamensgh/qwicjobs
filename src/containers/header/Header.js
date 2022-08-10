@@ -50,7 +50,7 @@ const Header = () => {
                         <div className='text-center'>
                           <img  src={`${process.env.PUBLIC_URL}/images/signup-quicjobber.png`} alt="signup-quicjobber" height={110} />
                         </div>
-                        <h4 className='fw-bold text-white text-wrap line-height-revert text-center mb-0 mt-3'>Sign up as a Qwicjobber</h4>
+                        <h4 className='fw-bold text-white text-wrap line-height-revert text-center mb-0 mt-3'>Join to Offer Your Services</h4>
                       </div>
                     </div>
                   </Dropdown.Item>
@@ -61,7 +61,7 @@ const Header = () => {
                           <img  src={`${process.env.PUBLIC_URL}/images/find-quicjobber.png`} alt="find-quicjobber" height={110} />
                         </div>
 
-                        <h4 className='fw-bold text-white text-wrap line-height-revert text-center mb-0 mt-3'>Find a Qwicjobber</h4>
+                        <h4 className='fw-bold text-white text-wrap line-height-revert text-center mb-0 mt-3'>Find Someone to Fix a problem</h4>
 
                       </div>
 

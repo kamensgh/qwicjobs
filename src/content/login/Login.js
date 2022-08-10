@@ -1,4 +1,5 @@
 import { React, useState, useEffect } from "react";
+import Dropdown from 'react-bootstrap/Dropdown';
 import "./login.scss";
 import Logo from "../../logo-white.svg";
 import { Link } from "react-router-dom";
@@ -82,11 +83,8 @@ const Login = () => {
                   </div>
 
                   <div className="mt-4 pt-2">
-                    <div
-                      className="overflow-hidden"
-                      style={{ borderRadius: "20px 20px 0 0" }}
-                    >
-                      <div className="bg-white p-4 p-lg-5">
+                    <div>
+                      <div className="bg-white p-4 p-lg-5" style={{ borderRadius: "20px 20px 0 0" }}>
                         <h6 className="fw-bold">
                           Log in with your phone number
                         </h6>
@@ -94,12 +92,21 @@ const Login = () => {
                         <LoginForm />
                       </div>
                       <div className="bg-primary py-4">
-                        <p className="m-0 small text-center text-white">
+                        <div className="m-0 small text-center text-white">
                           Don't have an account? &nbsp;
-                          <Link to="/user-signup" className="text-orange">
-                            SIGNUP
-                          </Link>
-                        </p>
+
+                          <Dropdown className="d-inline">
+                            <Dropdown.Toggle className="btn text-orange" id="dropdown-basic">
+                              Sign Up
+                            </Dropdown.Toggle>
+
+                            <Dropdown.Menu>
+                              <Dropdown.Item className="fw-bold small" href="worker-signup">Offer Services</Dropdown.Item>
+                              <Dropdown.Item className="fw-bold small" href="user-signup">Find Someone</Dropdown.Item>
+                            </Dropdown.Menu>
+                          </Dropdown>
+
+                        </div>
                       </div>
                     </div>
                   </div>
