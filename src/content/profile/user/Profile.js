@@ -5,7 +5,6 @@ import ProgressBar from "react-bootstrap/ProgressBar";
 import Shimmer from "react-js-loading-shimmer";
 import Providers from "../../../components/user/ServiceproviderCards"
 import Pagination from "../../../components/Pagination"
-
 import Moment from "moment";
 import { axiosRequest } from "../../../api/axios";
 import { useCookies } from "react-cookie";

@@ -19,7 +19,7 @@ const Signup = () => {
 
   const [adsloader, setAdsLoader] = useState(true);
 
-  const [pages, setPages] = useState(1);
+  const [pages, setPages] = useState(2);
   const [formData, setFormData] = useState({
     user: {
       firstName: "",

@@ -2,13 +2,8 @@ import React, { useEffect, useState } from "react";
 import { axiosRequest } from "../../api/axios";
 import uuid from 'react-uuid'
 import { Link } from "react-router-dom";
-
 import Shimmer from "react-js-loading-shimmer"; 
 const PROVIDERS_URL = "api/v1/users/service-providers";
-
-
-
-
 
 
 
@@ -17,10 +12,10 @@ const ServiceproviderCards = () => {
     const [providers, setProviders] = useState([]);
     const [loadingProviders, setloadingProviders] = useState(true);
 
-
-
     useEffect(() => {
+        const controller = new AbortController();
         getProviders();
+        return () => controller.abort();
     }, []);
 
     const getProviders = async () => {
@@ -28,17 +23,13 @@ const ServiceproviderCards = () => {
         try {
             const response = await axiosRequest.get(PROVIDERS_URL);
             const res = response.data.data;
-
-            setProviders(res);
+            setProviders([res]);
             setloadingProviders(false);
         } catch (err) {
             console.log(err);
             setloadingProviders(false);
         }
     };
-
-
-
 
     const providerPlaceholder = () => {
         const n = 10;
@@ -58,9 +49,6 @@ const ServiceproviderCards = () => {
         ));
     };
 
-
-
- 
     return (
         <>
             {!loadingProviders ?
@@ -76,12 +64,12 @@ const ServiceproviderCards = () => {
                                 <div className="card-body">
                                     <div>
                                         <h5 className="card-title fw-bold text-center mb-0">
-                                            {el.User.firstName + " " + el.User.surname}
+                                            {el.firstName + " " + el.surname}
                                         </h5>
-                                        <p className="text-center">Carpenter</p>
+                                        <p className="text-center">{el.ServiceByProvider[0].Service.name}</p>
                                     </div>
-                                    <p className="card-text">
-                                        {el.aboutSelf}
+                                    <p className="card-text text-truncate-3">  
+                                        {el.ServiceProvider.aboutSelf}
                                     </p>
                                     <Link
                                         to={`/workerDetails/${el.id}`}

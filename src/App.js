@@ -9,6 +9,7 @@ import {
   WorkerProfile,
   WorkerDetails,
   JobDetails,
+  EditUserProfile
 } from "./content";
 import {
   BrowserRouter as Router,
@@ -35,6 +36,7 @@ function App() {
             <Route element={<UserLayout />}>
               <Route path="/userprofile" element={<UserProfile />} />
               <Route path="/workerDetails/:id" element={<WorkerDetails />} />
+              <Route path="/editprofile" element={<EditUserProfile />} />
               <Route path="*" element={<Navigate to="/userprofile" />} />
             </Route>
             <Route element={<WorkerLayout />}>

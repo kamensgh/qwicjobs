@@ -52,6 +52,7 @@ const Steptwo = ({ setFormData, formData }) => {
 
   const getEd = (e) => {
     const { checked, value } = e.currentTarget;
+   
     setSelectEd((prev) =>
       checked ? [...prev, parseInt(value)] : prev.filter((val) => val !== parseInt(value))
     );
@@ -64,14 +65,16 @@ const Steptwo = ({ setFormData, formData }) => {
 
   const setOtherJobs = (e) => {
     let value = e.target.value
-
+    
     setSelectOtherJobs((prev) =>
-      value ? [...prev, parseInt(value)] : prev.filter((val) => val !== parseInt(value))
-    );
+    value ? [...prev, parseInt(value)] : prev.filter((val) => val !== parseInt(value))
+    );    
+    let newEd = formData.services;
+    let arr = [...newEd, ...selectOtherJobs]
 
     setFormData({
       ...formData,
-      services: selectOtherJobs
+      services: arr
     })
   }
 
@@ -271,7 +274,7 @@ const Steptwo = ({ setFormData, formData }) => {
                     onChange={(e) =>
                       setFormData({
                         ...formData,
-                        hasHealthCondition: e.target.value,
+                        hasHealthCondition: JSON.parse(e.target.value),
                       })
                     }
                   >

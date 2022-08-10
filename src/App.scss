@@ -110,6 +110,10 @@ $objectLineheight: 0, 1, 2, inherit, initial, normal, revert, unset;
   }
 }
 
+.dropdown-item.active, .dropdown-item:active {
+    background-color: transparent;
+}
+
 .line-height-1half {
   line-height: 1.5;
 }
@@ -253,3 +257,28 @@ input[type="file"] {
     }
   }
 }
+
+
+$object: (contain:contain, cover: cover, fill: fill, scale-down: scale-down);
+
+@each $label,
+$value in $object {
+  .object-fit-#{$label} {
+    object-fit: $value;
+  }
+}
+
+
+
+@for $i from 1 through 10 {
+  .text-truncate-#{$i} {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: $i; /* number of lines to show */
+    line-clamp:$i;
+    -webkit-box-orient: vertical;
+    // height: calc(100vh - #{$i}px);
+  }
+}
+
