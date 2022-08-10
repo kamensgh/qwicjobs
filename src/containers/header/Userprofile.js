@@ -6,11 +6,10 @@ import { Link } from 'react-router-dom';
 import { useCookies } from "react-cookie";
 
 const Userprofile = () => {
-  const [cookies, removeCookie] = useCookies();
 
   const logout = () => {
-    removeCookie("user_login_cookies");
-    window.location.reload();
+    localStorage.removeItem("currentUser");
+    window.location.href = "/";
   };
   return (
     <>
@@ -25,14 +24,14 @@ const Userprofile = () => {
               <Nav.Link href="/how-it-works">Discover</Nav.Link>
               <Nav.Link href="#action2">Help</Nav.Link>
               <Nav.Link href="#action1">Messages</Nav.Link>
-              <Nav.Link onClick={logout} className="border-start">  
+              <div onClick={logout} className="border-start">  
                 <img 
                   src={`${process.env.PUBLIC_URL}/images/logout.png`}
                   alt="rate"
                   className="ms-1"
                   width={20}
                 />
-              </Nav.Link>
+              </div>
             </Nav>
           </Navbar.Collapse>
         </Container>

@@ -21,7 +21,7 @@ const Signup = () => {
 
   const [pages, setPages] = useState(1);
   const [formData, setFormData] = useState({
-    user: {
+    "user": {
       firstName: "",
       surname: "",
       otherNames: "",
@@ -31,12 +31,11 @@ const Signup = () => {
       otherNumber: "",
       userTypeId: 4,
     },
-    provider: {
+    "provider": {
       aboutSelf: "",
       cityId: 1,
-      educationalLevelId: [],
     },
-    bio: {
+    "bio": {
       dob: "",
       profilePicture: "",
       idTypeId: 1,
@@ -45,11 +44,15 @@ const Signup = () => {
       residence: "",
       genderId: 0,
     },
-    services: [],
-    hasHealthCondition: false,
+    "services": [],
+    "hasHealthCondition": false,
+    "education":[]
   });
 
   const registerForms = () => {
+    const onStepChange = () => {
+      setPages(1);
+    }
     const components = {
       1: (
         <Stepone
@@ -58,7 +61,7 @@ const Signup = () => {
           setFormData={setFormData}
         />
       ),
-      2: <Steptwo formData={formData} setFormData={setFormData} />,
+      2: <Steptwo setPages={2} onStepChange={onStepChange} formData={formData} setFormData={setFormData} />,
     };
     return components[pages] || components[1];
   };

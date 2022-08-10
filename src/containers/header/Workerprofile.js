@@ -6,6 +6,11 @@ import './header.scss'
 
 
 const Workerprofile = () => {
+
+  const logout = () => {
+    localStorage.removeItem("currentUser");
+    window.location.href = "/";
+  };
   return (
     <>
       <Navbar expand="lg" className="shadow-sm">
@@ -19,6 +24,7 @@ const Workerprofile = () => {
               <Nav.Link href="/how-it-works">Discover</Nav.Link>
               <Nav.Link href="#action2">Help</Nav.Link>
               <Nav.Link href="#action1">Messages</Nav.Link>
+              <Nav.Link onClick={logout} >Messages</Nav.Link>
             </Nav>
           </Navbar.Collapse>
         </Container>

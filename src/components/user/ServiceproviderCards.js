@@ -14,7 +14,7 @@ const PROVIDERS_URL = "api/v1/users/service-providers";
 
 const ServiceproviderCards = () => {
     const [loading, setloading] = useState(true);
-    const [providers, setProviders] = useState([]);
+    const [provider, setProvider] = useState([]);
     const [loadingProviders, setloadingProviders] = useState(true);
 
 
@@ -28,8 +28,8 @@ const ServiceproviderCards = () => {
         try {
             const response = await axiosRequest.get(PROVIDERS_URL);
             const res = response.data.data;
-
-            setProviders(res);
+            console.log("response from service provider cards js",res);
+            setProvider(res);
             setloadingProviders(false);
         } catch (err) {
             console.log(err);
@@ -60,12 +60,10 @@ const ServiceproviderCards = () => {
 
 
 
-
+    
     return (
         <>
-            {!loadingProviders ?
-              
-                    providers.map((el) =>
+            {!loadingProviders ? (
                         <div className="col mb-4" key={uuid}>
                             <div className="card" >
                                 <img
@@ -76,22 +74,23 @@ const ServiceproviderCards = () => {
                                 <div className="card-body">
                                     <div>
                                         <h5 className="card-title fw-bold text-center mb-0">
-                                            {el.User.firstName + " " + el.User.surname}
+                                            {provider.firstName + " " + provider.surname}
                                         </h5>
                                         <p className="text-center">Carpenter</p>
                                     </div>
                                     <p className="card-text">
-                                        {el.aboutSelf}
+                                        {provider.ServiceProvider[0].aboutSelf}
                                     </p>
                                     <Link
-                                        to={`/workerDetails/${el.id}`}
+                                        to={`/workerDetails/${provider.id}`}
                                         className="stretched-link"
                                     ></Link>
                                 </div>
                             </div>
                         </div>
+                    
+                
                     )
-             
                 :
                 providerPlaceholder()
             }

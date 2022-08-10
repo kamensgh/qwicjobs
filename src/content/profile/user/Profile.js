@@ -15,8 +15,7 @@ const Profile = () => {
   const [jobs, setJobs] = useState([]);
   const formatDate = Moment().format("dddd, MMMM Do");
   const baseURL = "https://qwicjobs-api.herokuapp.com";
-  const [cookies] = useCookies(["user_login_cookies"]);
-  const user_cookies = cookies.user_login_cookies;
+  const user = localStorage.getItem("currentUser");
 
 
 
@@ -73,7 +72,7 @@ const Profile = () => {
                       className="fw-bold"
                       style={{ textTransform: "capitalize" }}
                     >
-                      Good Evening, {user_cookies.firstName}
+                      Good Evening, {user.firstName}
                     </h2>
                   </div>
                   <div>
@@ -121,9 +120,9 @@ const Profile = () => {
                   <div className="jobs-container">
                     <div className="jobs-list">
                       {!loadingJobs
-                        ? jobs.map((job) => (
+                        ? jobs.map((job, index) => (
                             <a
-                              key={job.value}
+                              key={index}
                               href="/"
                               className="text-decoration-none d-flex mb-3 align-items-center justify-content-start"
                             >

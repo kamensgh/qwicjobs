@@ -33,24 +33,23 @@ const LoginForm = () => {
         }
       );
       console.log("res", res);
-      if (res.data.data.user.id) {
-        console.log(" data .length", res.data.data.user);
-        let expiry_date = new Date(Date.now() + 86400 * 1000);
+      if (res.status === 200) {
         dispatch(loginSuccess(res.data.data.user));
-        setCookie("user_login_cookies", res.data.data.user, {
-          path: "/",
-          expires: expiry_date,
-        });
-        console.log(expiry_date);
-        navigate("/userprofile", { replace: true });
+        const allUserDetails = res.data.data.user;
+        const { BioId, UserType, email, firstName, phoneNumber, surname, userTypeId} = allUserDetails
+        const user = {
+          BioId, UserType, email, firstName, phoneNumber, surname, userTypeId
+        }
+        localStorage.setItem("currentUser", JSON.stringify(user));
+        if (userTypeId === 4) {
+          navigate("/workerprofile", { replace: true });
+        } else{
+          navigate("/userprofile", { replace: true });
+        }
         setLoading(false);
-      } else {
-        console.log("is it?", res.data.data.length);
-        setLoading(false);
-      }
-      return;
+      } 
     } catch (err) {
-      console.log(err.response);
+      console.log("login error: " + err);
 
       if (err.response.status === 401) {
         setErrMsg("User not found");
@@ -59,6 +58,7 @@ const LoginForm = () => {
       }
       setLoading(false);
     }
+    setLoading(false);
   };
 
   return (
