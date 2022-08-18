@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import ProgressBar from "react-bootstrap/ProgressBar";
 import Shimmer from "react-js-loading-shimmer";
 import Providers from "../../../components/user/ServiceproviderCards"
-import Pagination from "../../../components/Pagination"
+// import Pagination from "../../../components/Pagination"
 import Moment from "moment";
 import { axiosRequest } from "../../../api/axios";
 import { useCookies } from "react-cookie";
@@ -172,7 +172,7 @@ const Profile = () => {
                 </div>
 
                 <div>
-                  <Pagination/>
+                  {/* <Pagination/> */}
                 </div>
               </div>
             </div>

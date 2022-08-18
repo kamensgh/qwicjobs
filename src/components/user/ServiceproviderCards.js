@@ -23,6 +23,7 @@ const ServiceproviderCards = () => {
         try {
             const response = await axiosRequest.get(PROVIDERS_URL);
             const res = response.data.data;
+            console.log();
             setProviders([res]);
             setloadingProviders(false);
         } catch (err) {
@@ -52,30 +53,31 @@ const ServiceproviderCards = () => {
     return (
         <>
             {!loadingProviders ? (
-                        <div className="col mb-4" key={uuid}>
-                            <div className="card" >
-                                <img
-                                    src={`${process.env.PUBLIC_URL}/images/cardimg1.png`}
-                                    className="card-img-top"
-                                    alt="..."
-                                />
-                                <div className="card-body">
-                                    <div>
-                                        <h5 className="card-title fw-bold text-center mb-0">
-                                            {el.firstName + " " + el.surname}
-                                        </h5>
-                                        <p className="text-center">{el.ServiceByProvider[0].Service.name}</p>
-                                    </div>
-                                    <p className="card-text text-truncate-3">  
-                                        {el.ServiceProvider.aboutSelf}
-                                    </p>
-                                    <Link
-                                        to={`/workerDetails/${provider.id}`}
-                                        className="stretched-link"
-                                    ></Link>
-                                </div>
-                            </div>
-                        </div>
+                <div>Data</div>
+                        // <div className="col mb-4" key={uuid}>
+                        //     <div className="card" >
+                        //         <img
+                        //             src={`${process.env.PUBLIC_URL}/images/cardimg1.png`}
+                        //             className="card-img-top"
+                        //             alt="..."
+                        //         />
+                        //         <div className="card-body">
+                        //             <div>
+                        //                 <h5 className="card-title fw-bold text-center mb-0">
+                        //                     {el.firstName + " " + el.surname}
+                        //                 </h5>
+                        //                 <p className="text-center">{el.ServiceByProvider[0].Service.name}</p>
+                        //             </div>
+                        //             <p className="card-text text-truncate-3">  
+                        //                 {el.ServiceProvider.aboutSelf}
+                        //             </p>
+                        //             <Link
+                        //                 to={`/workerDetails/${provider.id}`}
+                        //                 className="stretched-link"
+                        //             ></Link>
+                        //         </div>
+                        //     </div>
+                        // </div>
                     
                 
                     )
