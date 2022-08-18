@@ -10,7 +10,7 @@ const Workerprofile = () => {
   const [cookies, removeCookie] = useCookies();
   
   const logout = () => {
-    removeCookie("user_login_cookies");
+    localStorage.removeItem("currentUser");
     window.location.reload();
   };
   return (

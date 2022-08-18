@@ -23,23 +23,27 @@ import { useCookies } from "react-cookie";
 import { useEffect, useState } from "react";
 
 function App() {
-  const user = localStorage.getItem("currentUser");
+  const user = JSON.parse(localStorage.getItem("currentUser"));
+  console.log("user.userTypeId", user);
 
   return (
     <main className="App">
       {user && (
         <>
           <Routes>
-            <Route element={<UserLayout />}>
-              <Route path="/userprofile" element={<UserProfile />} />
-              <Route path="/jobdetails" element={<JobDetails />} />
-              <Route path="*" element={<Navigate to="/userprofile" />} />
-            </Route>
-            <Route element={<WorkerLayout />}>
-              <Route path="/workerprofile" element={<WorkerProfile />} />
-              <Route path="/workerDetails/:id" element={<WorkerDetails />} />
-              <Route path="*" element={<Navigate to="/workerprofile" />} />
-            </Route>
+            {user.userTypeId === 4 ? (
+              <Route element={<WorkerLayout />}>
+                <Route path="/workerprofile" element={<WorkerProfile />} />
+                <Route path="/workerDetails/:id" element={<WorkerDetails />} />
+                <Route path="*" element={<Navigate to="/workerprofile" />} />
+              </Route>
+            ) : (
+              <Route element={<UserLayout />}>
+                <Route path="/userprofile" element={<UserProfile />} />
+                <Route path="/jobdetails" element={<JobDetails />} />
+                <Route path="*" element={<Navigate to="/userprofile" />} />
+              </Route>
+            )}
           </Routes>
         </>
       )}

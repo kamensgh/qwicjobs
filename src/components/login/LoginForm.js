@@ -10,7 +10,7 @@ const LoginForm = () => {
   const [cookies, setCookie] = useCookies(["user-cookie"]);
   const numberRef = useRef();
   const errRef = useRef();
-  const navigate = useNavigate();
+  let navigate = useNavigate();
 
   const [number, setNumber] = useState("");
   const [pwd, setPwd] = useState("");
@@ -22,7 +22,7 @@ const LoginForm = () => {
     e.preventDefault();
     setLoading(true);
 
-    try {
+  
       dispatch(loginStart());
       const res = await axiosRequest.post(
         "https://qwicjobs-api.herokuapp.com/api/v1/auth/login",
@@ -31,35 +31,23 @@ const LoginForm = () => {
           password: pwd,
         }
       );
-      if (Object.keys(res.data.data).length > 0) {   
+      if (res.status === 200) {   
+        localStorage.setItem("currentUser", JSON.stringify(res.data.data.user));
         console.log("data.length", res.data.data);
-        let expiry_date = new Date(Date.now() + 86400 * 1000);
         dispatch(loginSuccess(res.data.data.user));
-        setCookie("user_login_cookies", res.data.data.user, {
-          path: "/",
-          expires: expiry_date,
-        });
         setLoading(false);
-        if (res.data.data.user.UserType.id === 4){
+        console.log("res.data.data.user",res.data.data.user);
+        if (res.data.data.user.userTypeId === 4){
           console.log("worker");
-          navigate("/workerprofile", { replace: true }); 
+          window.location.href = "/"
         } else {
           console.log("user");
-          navigate("/userprofile", { replace: true }); 
+          window.location.href = "/"
         }
       } else {   
-        setErrMsg(res.data.message);
+        setErrMsg(res.data.data.message);
         setLoading(false);
       } 
-    } catch (err) {
-      console.log(err);
-      if (err.response.status === 401) {
-        setErrMsg("User not found");
-      } else {
-        setErrMsg("Something went wrong, please try again");
-      }
-      setLoading(false);
-    }
     setLoading(false);
   };
 
