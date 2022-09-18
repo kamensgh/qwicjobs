@@ -12,8 +12,9 @@ import { Skills, Languages } from '../../../data'
 
 const Editprofile = () => {
   const editSection = <FontAwesomeIcon icon={faPencil} className='text-muted' style={{ fontSize: '13px' }} />;
+  const alteditSection = <FontAwesomeIcon icon={faPencil} style={{ fontSize: '11px' }} />;
   const addSection = <FontAwesomeIcon icon={faPlus} className='text-muted' style={{ fontSize: '13px' }} />;
-  const deleteSection = <FontAwesomeIcon icon={faTrashCan} className='text-muted' style={{ fontSize: '13px' }} />;
+  const deleteSection = <FontAwesomeIcon icon={faTrashCan} style={{ fontSize: '11px' }} />;
 
   const [educationmodalShow, setEducationmodalShow] = useState(false);
   const [verificationmodalShow, setVerificationmodalShow] = useState(false);
@@ -198,7 +199,7 @@ const Editprofile = () => {
                     />
 
                   </div>
-                 
+
                   <div className='p-4 border-bottom'>
                     <h6 className="fw-bold mb-1 text-success">Recent Work images</h6>
 
@@ -238,7 +239,7 @@ const Editprofile = () => {
                 </div>
 
                 <div className='p-4'>
-                 
+
 
                   <div>
                     <ImageUploading
@@ -246,6 +247,7 @@ const Editprofile = () => {
                       value={images}
                       onChange={onChange}
                       maxNumber={maxNumber}
+                      maxFileSize={maxNumber}
                       dataURLKey="data_url"
                     >
                       {({
@@ -256,34 +258,38 @@ const Editprofile = () => {
                         onImageRemove,
                         isDragging,
                         dragProps,
+                        errors,
                       }) => (
                         // write your building UI
                         <div className="upload__image-wrapper">
-                         
-                         <div>
-                          <div className='d-flex align-items-center'>
-                            <h6 className="fw-bold mb-0 text-success me-2">Recent Work images</h6>
-                            <span className="editinfo me-2" onClick={onImageUpload} {...dragProps}>{addSection}</span>
-                            <span className="editinfo" onClick={onImageRemoveAll}>{deleteSection}</span>
-                          </div>
-                            <p className='small text-muted'>Add up to 5 images of you while working</p>
-                         </div>
+                        
 
-
-
-                          <div className='d-flex flex-wrap' style={{ gap: '13px'}}>
-                          {imageList.map((image, index) => (
-                            <div key={index} className="image-item">
-                              <img src={image['data_url']} alt="" width="100" />
-                              <div className="image-item__btn-wrapper">
-                                <button className='update' onClick={() => onImageUpdate(index)}>Update</button>
-                                <button className='remove' onClick={() => onImageRemove(index)}>{deleteSection}</button>
-                              </div>
+                          <div>
+                            <div className='d-flex align-items-center'>
+                              <h6 className="fw-bold mb-0 text-success me-2">Recent Work images</h6>
+                              <span className="editinfo me-2" onClick={onImageUpload} {...dragProps}>{addSection}</span>
+                              <span className="editinfo" onClick={onImageRemoveAll}>{deleteSection}</span>
                             </div>
-                          ))}
-                        </div>
+                            <p className='small text-muted'>Add up to 5 images of you while working</p>
+                          </div>
+
+
+
+                          <div className='d-flex flex-wrap mt-4' style={{ gap: '13px' }}>
+                            {imageList.map((image, index) => (
+                              <div key={index} className="image-item">
+                                <img src={image['data_url']} alt="" width="100" />
+                                <div className="image-item__btn-wrapper">
+                                  <button className='update me-2' onClick={() => onImageUpdate(index)}>{alteditSection}</button>
+                                  <button className='remove' onClick={() => onImageRemove(index)}>{deleteSection}</button>
+                                </div>
+                              </div>
+                            ))}
+                          </div>
                         </div>
                       )}
+
+                    
                     </ImageUploading>
                   </div>
 
