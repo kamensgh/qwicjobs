@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { axiosRequest } from "../../api/axios";
 import Spinner from "react-bootstrap/Spinner";
 import { useDispatch } from "react-redux";
@@ -8,13 +8,11 @@ import {
   registerSuccess,
   registerFailure,
 } from "../../redux/userRedux";
-import { useCookies } from "react-cookie";
 const REGISTER_URL = "api/v1/auth/register/client";
 
 function ClientForm() {
   const name = useRef();
   const errRef = useRef();
-  let navigate = useNavigate();
 
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -26,7 +24,6 @@ function ClientForm() {
 
   const [errMsg, setErrMsg] = useState("");
   const [loading, setLoading] = useState(false);
-  const [cookies, setCookie] = useCookies(["user-cookie"]);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -115,7 +112,6 @@ function ClientForm() {
             <input
               type="text"
               ref={name}
-              autoComplete="off"
               className="form-control"
               id="firstname"
               placeholder="eg. Kwame"
@@ -130,7 +126,6 @@ function ClientForm() {
             </label>
             <input
               type="text"
-              autoComplete="off"
               className="form-control"
               id="surname"
               placeholder="eg. Mensah"
@@ -145,7 +140,6 @@ function ClientForm() {
             </label>
             <input
               type="number"
-              autoComplete="off"
               className="form-control"
               id="number"
               placeholder="eg. 0244123456"
@@ -161,7 +155,6 @@ function ClientForm() {
             </label>
             <input
               type="email"
-              autoComplete="off"
               className="form-control"
               id="email"
               placeholder="eg. example@email.com"

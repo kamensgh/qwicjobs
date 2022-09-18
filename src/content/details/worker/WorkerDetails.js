@@ -19,7 +19,7 @@ const WorkerDetails = () => {
   const location = useParams();
   const [providerDetails, setProviderDetails] = useState({});
   const [loading, setloading] = useState(true);
-  const [showmoreedu, setShowmoreedu] = useState(true);
+  const [showmoreedu, setShowmoreedu] = useState(false);
   const [revealNumber, setRevealNumber] = useState(false)
 
   useEffect(() => {

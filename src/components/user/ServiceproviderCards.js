@@ -13,9 +13,7 @@ const ServiceproviderCards = () => {
     const [loadingProviders, setloadingProviders] = useState(true);
 
     useEffect(() => {
-        const controller = new AbortController();
         getProviders();
-        return () => controller.abort();
     }, []);
 
     const getProviders = async () => {
@@ -23,14 +21,20 @@ const ServiceproviderCards = () => {
         try {
             const response = await axiosRequest.get(PROVIDERS_URL);
             const res = response.data.data;
-            console.log();
-            setProviders([res]);
+            if (res === null) {
+                setProviders([])
+            } else {
+                setProviders(new Array(res));
+            }
             setloadingProviders(false);
         } catch (err) {
             console.log(err);
             setloadingProviders(false);
         }
     };
+
+
+    console.log(providers.length);
 
     const providerPlaceholder = () => {
         const n = 10;
@@ -52,32 +56,35 @@ const ServiceproviderCards = () => {
 
     return (
         <>
-            {!loadingProviders ? (
-                <div>Data</div>
-                        // <div className="col mb-4" key={uuid}>
-                        //     <div className="card" >
-                        //         <img
-                        //             src={`${process.env.PUBLIC_URL}/images/cardimg1.png`}
-                        //             className="card-img-top"
-                        //             alt="..."
-                        //         />
-                        //         <div className="card-body">
-                        //             <div>
-                        //                 <h5 className="card-title fw-bold text-center mb-0">
-                        //                     {el.firstName + " " + el.surname}
-                        //                 </h5>
-                        //                 <p className="text-center">{el.ServiceByProvider[0].Service.name}</p>
-                        //             </div>
-                        //             <p className="card-text text-truncate-3">  
-                        //                 {el.ServiceProvider.aboutSelf}
-                        //             </p>
-                        //             <Link
-                        //                 to={`/workerDetails/${provider.id}`}
-                        //                 className="stretched-link"
-                        //             ></Link>
-                        //         </div>
-                        //     </div>
-                        // </div>
+            {!loadingProviders ? providers.length <= 0 ? <p className="w-100 text-center">No Data</p>: (
+
+                        providers.map((el)=>(
+
+                            <div className="col mb-4" key={uuid}>
+                                <div className="card" >
+                                    <img
+                                        src={`${process.env.PUBLIC_URL}/images/cardimg1.png`}
+                                        className="card-img-top"
+                                        alt="..."
+                                    />
+                                    <div className="card-body">
+                                        <div>
+                                            <h5 className="card-title fw-bold text-center mb-0">
+                                                {el.firstName + " " + el.surname}
+                                            </h5>
+                                            <p className="text-center">{el.ServiceByProvider[0].Service.name}</p>
+                                        </div>
+                                        <p className="card-text text-truncate-3">  
+                                            {el.ServiceProvider[0].aboutSelf}
+                                        </p>
+                                        <Link
+                                    to={`/workerDetails/${el.id}`}
+                                            className="stretched-link"
+                                        ></Link>
+                                    </div>
+                                </div>
+                            </div>
+                        ))
                     
                 
                     )

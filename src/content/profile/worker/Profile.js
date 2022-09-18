@@ -6,34 +6,54 @@ import { Row } from "react-bootstrap";
 import Shimmer from "react-js-loading-shimmer";
 import Moment from "moment";
 import { axiosRequest } from "../../../api/axios";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPencil } from "@fortawesome/free-solid-svg-icons";
+
 const JOBS_URL = "api/v1/default/service";
 
 
 const Profile = () => {
   const now = 60;
+  const editProfile = <FontAwesomeIcon icon={faPencil} />;
   const [loading, setloading] = useState(true);
   const [jobs, setJobs] = useState([]);
+  const [userData, setUserData] = useState([])
   const formatDate = Moment().format("dddd, MMMM Do");
   const baseURL = "https://qwicjobs-api.herokuapp.com";
 
 
   useEffect(() => {
-    getJobs();
+    let isFetching = true;
+    getJobs(isFetching);
+    return ()=> {
+      isFetching = false;
+    }
   }, []);
 
-  const getJobs = async () => {
+  useEffect(() => {
+    const info = () => { 
+      let data = localStorage.getItem('currentUser');
+      setUserData(JSON.parse(data));
+     }
+    info();
+  }, [userData.id]);
+
+  const getJobs = async (isFetching) => {
     setloading(true);
     try {
       const response = await axiosRequest.get(JOBS_URL);
-      const res = response.data.data;
-      let newData = [];
-      newData = res.map((job) => ({
-        value: job.id,
-        label: job.name,
-        src: `${baseURL}/assets/icons/${job.name}.png`,
-      }));
-      setJobs(newData);
-      setloading(false);
+      if (isFetching){
+        const res = response.data.data;
+        let newData = [];
+        console.log(res)
+        newData = res.map((job) => ({
+          value: job.id,
+          label: job.name,
+          src: `${baseURL}/assets/icons/${job.icon}`,
+        }));
+        setJobs(newData);
+        setloading(false);
+      }
     } catch (err) {
       console.log(err);
       setloading(false);
@@ -68,7 +88,7 @@ const Profile = () => {
                   className="banner-text mb-0 display-5"
                   style={{ textTransform: "capitalize" }}
                 >
-                  Good Evening, <br />
+                  Good Evening, <br /> {userData?.firstName}
                   
                 </h1>
               </div>
@@ -90,17 +110,17 @@ const Profile = () => {
           <div className="row">
             <div className="col-12 col-md-3 d-lg-block d-none">
               <div className="card h-auto p-4">
-                {jobs
+                {!loading
                   ? jobs.map((job) => (
                       <a
-                        key={job.value}
+                        key={job?.value}
                         href="/"
                         className="text-decoration-none d-flex mb-3 align-items-center justify-content-start"
                       >
                         <span className="me-3">
-                          <img src={job.src} alt="rate" width={30} />
+                          <img src={job?.src} alt="rate" width={30} />
                         </span>
-                        {job.label}
+                        {job?.label}
                       </a>
                     ))
                   : jobsPlaceholder()}
@@ -149,6 +169,12 @@ const Profile = () => {
                   <div className="d-flex justify-content-between">
                     <div>
                       <button className="btn mt-4 mt-md-0 rounded-pill">
+                        <img
+                          src={`${process.env.PUBLIC_URL}/images/share.svg`}
+                          alt="rate"
+                          height={25}
+                          className="me-1"
+                        />
                         Share
                       </button>
                     </div>
@@ -204,6 +230,12 @@ const Profile = () => {
                   <div className="d-flex justify-content-between">
                     <div>
                       <button className="btn mt-4 mt-md-0 rounded-pill">
+                        <img
+                          src={`${process.env.PUBLIC_URL}/images/share.svg`}
+                          alt="rate"
+                          height={25}
+                          className="me-1"
+                        />
                         Share
                       </button>
                     </div>
@@ -220,17 +252,23 @@ const Profile = () => {
               <div className="card h-auto">
                 <div className="p-4">
                   <div className="text-center mb-4">
-                    <img
-                      src={`${process.env.PUBLIC_URL}/images/avatar3.png`}
-                      alt="rate"
-                      width={150}
-                      className="rounded-circle"
-                    />
+                    <span className="d-inline-block position-relative rounded-circle">
+                      <img
+                        src={`${process.env.PUBLIC_URL}/images/avatar3.png`}
+                        alt="rate"
+                        width={150}
+                        height={150}
+                        className="rounded-circle object-fit-cover"
+                      />
+                      <Link to="/editdetails" className="editbutton">
+                        {editProfile}
+                      </Link>
+                    </span>
                   </div>
 
                   <div className="text-center">
                     <h4 className="border-bottom border-info pb-2 text-info mb-3 d-block text-truncate">
-                      Juliana Asantewaa
+              {userData?.firstName + " " + userData?.surname}
                     </h4>
 
                     <p className="">
@@ -240,16 +278,14 @@ const Profile = () => {
 
                   <div className="text-center mb-3">
                     <p className="mb-1 small ">
-                      <span className="text-success"> Date of Birth:</span>25th
-                      June 2020
+                      <span className="text-success"> Date of Birth:</span>  {Moment(userData?.BioId?.dob).format("Do MMMM YYYY")}
                     </p>
                     <p className="mb-1 small">
-                      <span className="text-success">Location:</span> Spintex
-                      Accra
+                      <span className="text-success">Location:</span> {userData?.BioId?.residence+" "}
+                      - Accra
                     </p>
                     <p className="mb-0 small">
-                      <span className="text-success"> My Contact:</span> 0244
-                      565 152{" "}
+                      <span className="text-success"> My Contact:</span> {userData?.phoneNumber}
                     </p>
                   </div>
 

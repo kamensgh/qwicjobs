@@ -9,9 +9,10 @@ import {
   WorkerProfile,
   WorkerDetails,
   JobDetails,
+  EditWorkerProfile,
+  PostJob,
 } from "./content";
 import {
-  BrowserRouter as Router,
   Navigate,
   Route,
   Routes,
@@ -19,8 +20,6 @@ import {
 import Layout from "./containers/layout";
 import UserLayout from "./containers/layout/UserProfile";
 import WorkerLayout from "./containers/layout/WorkerProfile";
-import { useCookies } from "react-cookie";
-import { useEffect, useState } from "react";
 
 function App() {
   const user = JSON.parse(localStorage.getItem("currentUser"));
@@ -31,19 +30,21 @@ function App() {
       {user && (
         <>
           <Routes>
-            {user.userTypeId === 4 ? (
+            {/* {user.userTypeId === 5 ? (
               <Route element={<WorkerLayout />}>
                 <Route path="/workerprofile" element={<WorkerProfile />} />
-                <Route path="/workerDetails/:id" element={<WorkerDetails />} />
+                <Route path="/jobdetails" element={<JobDetails />} />
+                <Route path="/editdetails" element={<EditWorkerProfile />} />
                 <Route path="*" element={<Navigate to="/workerprofile" />} />
               </Route>
             ) : (
               <Route element={<UserLayout />}>
                 <Route path="/userprofile" element={<UserProfile />} />
-                <Route path="/jobdetails" element={<JobDetails />} />
+                <Route path="/postjob" element={<PostJob />} />
+                <Route path="/workerDetails/:id" element={<WorkerDetails />} />
                 <Route path="*" element={<Navigate to="/userprofile" />} />
               </Route>
-            )}
+            )} */}
           </Routes>
         </>
       )}
@@ -53,6 +54,14 @@ function App() {
             <Route element={<Layout />}>
               <Route path="/" element={<Home />} />
               <Route path="/how-it-works" element={<Howitworks />} />
+            </Route>
+            <Route element={<WorkerLayout />}>
+              <Route path="/editdetails" element={<EditWorkerProfile />} />
+              <Route path="*" element={<Navigate to="/workerprofile" />} />
+            </Route>
+            <Route element={<UserLayout />}>
+              <Route path="/postjob" element={<PostJob />} />
+              <Route path="*" element={<Navigate to="/workerprofile" />} />
             </Route>
             <Route path="/login" element={<Login />} />
             <Route path="/user-signup" element={<UserSignup />} />

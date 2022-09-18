@@ -1,6 +1,60 @@
+.howitworks-banner {
+  padding: 45px 0;
+}
 
-.howitworks-banner{
+.editbutton {
+  position: absolute;
+  bottom: -3px;
+  border: 1px solid;
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  right: 18px;
+  background: white;
+  cursor: pointer;
+}
 
-    padding: 45px 0;
+.editinfo {
+  height: 26px;
+  width: 26px;
+  border-radius: 50%;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  background: white;
+  border: 1px solid #6c757d;
+  position: relative;
+    top: -7px;
+    cursor: pointer;
+    padding: 10px;
+}
 
+.gradient-bg{
+  background: rgb(250,248,248);
+  background: linear-gradient(0deg, rgba(250,248,248,1) 77%, rgba(8,50,69,1) 72%);
+}
+
+
+.upload__image-wrapper{
+
+  .image-item{
+    position: relative;
+
+
+    img{
+      width: 130px;
+      height: 130px;
+      object-fit: cover;
+      border-radius: 5px;
+    }
+
+    .image-item__btn-wrapper{
+      position: absolute;
+      bottom: 0;
+  
+    }
+  }
 }

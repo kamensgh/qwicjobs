@@ -10,7 +10,8 @@ export { default as UserProfile } from './profile/user/Profile';
 export { default as WorkerDetails } from './details/worker/WorkerDetails';
 export { default as WorkerProfile } from './profile/worker/Profile';
 // export { default as EditUserProfile } from './profile/user/Editprofile';
-// export { default as EditWorkerProfile } from './profile/worker/Editprofile';
+export { default as EditWorkerProfile } from './profile/worker/Editprofile';
+export { default as PostJob } from './profile/user/Postjob';
 
 
 

@@ -11,7 +11,7 @@ const Workerprofile = () => {
   
   const logout = () => {
     localStorage.removeItem("currentUser");
-    window.location.reload();
+    window.location.href = "/login";
   };
   return (
     <>

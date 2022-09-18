@@ -41,3 +41,23 @@
   }
   
 }
+
+.job-wrapper{
+  height: calc(100vh - 93px);
+  overflow: auto;
+
+  @media (max-width:586px){
+    height: 100%;
+  }
+}
+
+.add-section{
+  height: calc(100vh - 235px);
+  overflow: auto;
+      min-height: 856px;
+
+   @media (max-width:586px){
+    height: 100%;
+        min-height: unset;
+  }
+}

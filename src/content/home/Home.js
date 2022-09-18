@@ -2,23 +2,23 @@ import React from 'react';
 import './home.scss';
 import { Row, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import Homecarousel from '../../components/Homecarousel'
+import Orbit from '../../components/Orbit'
 
 const Home = () => {
   return (
     <>
       <div className="home-banner">
         <div className="container h-100">
-          <Row className="h-100 overflow-hidden">
-            <div className='col-12 col-md-6 h-100'>
+          <Row className="h-100 justify-content-between row overflow-hidden">
+            <div className='col-12 col-md-12 col-lg-6 col-xl-6 h-100'>
               <div className="h-100 d-flex flex-column justify-content-center">
                 <h1 className="banner-text mb-4">
-                  We all need help sometimes, we help you find the best.
+                  <span className='text-warning'>Skilled </span> People, <br/>
+                  Solving <span className='text-warning'>Problems. </span>
                 </h1>
 
                 <p className="text-white mb-5">
-                  Welcome to Qwicjobs. We help you source the best help for your
-                  everyday needs. Search, Find, Employ. It’s that simple.
+                  Plumbers, domestic helps, Cooks, Gardeners, Cleaners Carpenters, among others. Get all the help you need.
                 </p>
 
                 <div className="d-flex flex-wrap align-items-center">
@@ -30,14 +30,14 @@ const Home = () => {
                       className="mb-4 mb-lg-0"
                     />
                   </div>
-                  <Link to="/how-it-works" className="fw-bold btn btn-light">
-                    How it Works
+                  <Link to="/how-it-works" className="fw-bold rounded-pill btn btn-light">
+                    See How it Works
                   </Link>
                 </div>
               </div>
             </div>
-            <div className='col-12 col-md-6 h-100'>
-              <Homecarousel/>
+            <div className='col-12 col-md-12 col-lg-6 col-xl-5 h-100'>
+              <Orbit/>
             </div>
           </Row>
         </div>

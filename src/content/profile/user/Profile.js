@@ -4,25 +4,37 @@ import { Link } from "react-router-dom";
 import ProgressBar from "react-bootstrap/ProgressBar";
 import Shimmer from "react-js-loading-shimmer";
 import Providers from "../../../components/user/ServiceproviderCards"
-// import Pagination from "../../../components/Pagination"
+import Pagination from "../../../components/Pagination"
 import Moment from "moment";
 import { axiosRequest } from "../../../api/axios";
-import { useCookies } from "react-cookie";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCircleCheck } from "@fortawesome/free-solid-svg-icons";
+
 const JOBS_URL = "api/v1/default/service";
 
 const Profile = () => {
+  const verified = <FontAwesomeIcon icon={faCircleCheck} style={{ fontSize: '19px' }} />;
   const now = 60;
   const [loadingJobs, setloadingJobs] = useState(true);
   const [jobs, setJobs] = useState([]);
+  const [userData, setUserData] = useState([])
   const formatDate = Moment().format("dddd, MMMM Do");
   const baseURL = "https://qwicjobs-api.herokuapp.com";
-  const user = localStorage.getItem("currentUser");
 
 
 
   useEffect(() => {
     getJobs();
   }, []);
+
+  useEffect(() => {
+    const info = () => {
+      let data = localStorage.getItem('currentUser');
+      setUserData(JSON.parse(data));
+    }
+
+    info();
+  }, [userData.id]);
 
   const getJobs = async () => {
     setloadingJobs(true);
@@ -73,7 +85,7 @@ const Profile = () => {
                       className="fw-bold"
                       style={{ textTransform: "capitalize" }}
                     >
-                      Good Evening, {user.firstName}
+                      Good Evening, {userData?.firstName}
                     </h2>
                   </div>
                   <div>
@@ -105,9 +117,9 @@ const Profile = () => {
                     </div>
 
                     <div className="text-center py-4">
-                      <button className="btn rounded-pill btn-sm btn-info">
+                      <Link to='/postjob' className="btn rounded-pill btn-sm btn-info">
                         Post a Job
-                      </button>
+                      </Link>
                     </div>
                   </div>
                 </div>
@@ -167,12 +179,12 @@ const Profile = () => {
 
                 <div className="px-4 mt-2">
                   <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-3">
-                  <Providers/>
+                  <Providers/> 
                   </div>
                 </div>
 
                 <div>
-                  {/* <Pagination/> */}
+                  <Pagination/>
                 </div>
               </div>
             </div>

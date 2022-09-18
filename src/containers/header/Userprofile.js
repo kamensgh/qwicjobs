@@ -9,7 +9,7 @@ const Userprofile = () => {
 
   const logout = () => {
     localStorage.removeItem("currentUser");
-    window.location.href = "/";
+    window.location.href = "/login";
   };
   return (
     <>
@@ -24,11 +24,11 @@ const Userprofile = () => {
               <Nav.Link href="/how-it-works">Discover</Nav.Link>
               <Nav.Link href="#action2">Help</Nav.Link>
               <Nav.Link href="#action1">Messages</Nav.Link>
-              <div onClick={logout} className="border-start">  
+              <div onClick={logout} className="border-start d-flex align-items-center">  
                 <img 
                   src={`${process.env.PUBLIC_URL}/images/logout.png`}
                   alt="rate"
-                  className="ms-1"
+                  className="ms-2"
                   width={20}
                 />
               </div>

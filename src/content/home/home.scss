@@ -1,50 +1,185 @@
-.home-banner{
-    background-color: #083245;
-    height: 570px;
+.home-banner {
+  background-color: #083245;
+  height: 660px;
+  background: transparent
+    radial-gradient(
+      closest-side at 67% 50%,
+      #024462 0%,
+      #021720 76%,
+      #020a0e 100%
+    )
+    0% 0% no-repeat padding-box;
 
-    @media (max-width:768px) {
-
-        height: 100%;
-        padding-top: 47px;
-      
+  @media (max-width: 768px) {
+    height: 100%;
+    padding-top: 47px;
   }
 
-
-    .banner-text{
-        font-weight: 600;
-        color: white;
-    }
+  .banner-text {
+    font-weight: 600;
+    color: white;
+    font-size: 3rem;
+    font-style: italic;
+  }
 }
 
-.become-a-qwicjobber{
-    background-image: url(./../../../public/images/woman-smiling-on-phone.png);
-    background-size: cover;
-    background-repeat: no-repeat;
-    height: 800px;
-    display: flex;
-    align-items: center;
+.become-a-qwicjobber {
+  background-image: url(./../../../public/images/woman-smiling-on-phone.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 800px;
+  display: flex;
+  align-items: center;
 
-
-    @media (max-width:768px) {
-
-          height: 500px;
-        
-    }
+  @media (max-width: 768px) {
+    height: 500px;
+  }
 }
 
-.carousel-caption{
-    bottom: 7.25rem;
-    left: 7%;
+.carousel-caption {
+  bottom: 7.25rem;
+  left: 7%;
 }
 
-.carousel-item{
-    img{
-        height: 550px;
+.carousel-item {
+  img {
+    height: 550px;
 
-        @media (max-width:768px) {
-
-            height: 450px;
-          
-      }
+    @media (max-width: 768px) {
+      height: 450px;
     }
+  }
+}
+
+/* ---------- Container for the orbiting circles animation ---------- */
+#circle-orbit-container {
+  position: relative;
+  height: 400px;
+  width: 400px;
+}
+
+/* ---------- Inner orbit - This is the circles closest to the central point ---------- */
+#inner-orbit {
+  position: absolute;
+  top: 84px;
+  left: 84px;
+  width: 230px;
+  height: 230px;
+  border: 2px #f8f9fa dashed;
+  border-radius: 100%;
+  //   -webkit-animation: spin-right 10s linear infinite;
+  //   animation: spin-right 10s linear infinite;
+
+  &::after {
+    content: "";
+    background: url("../../../public/images/orb1.png") no-repeat center
+      center/contain;
+    position: absolute;
+    height: 201px;
+    width: 157px;
+    top: -100px;
+    left: -64px;
+    z-index: 1;
+  }
+}
+
+/* ---------- Middle orbit - This is the circles second closest to the central point ---------- */
+#middle-orbit {
+  position: absolute;
+  top: 40px;
+  left: 40px;
+  width: 320px;
+  height: 320px;
+  border: 2px #f8f9fa6b dashed;
+  border-radius: 100%;
+  //   -webkit-animation: spin-right 15s linear infinite;
+  //   animation: spin-right 15s linear infinite;
+
+   &::after {
+    content: "";
+    background: url("../../../public/images/orb2.png") no-repeat center
+      center/contain;
+    position: absolute;
+       height: 225px;
+    width: 169px;
+    top: 169px;
+    left: 68px;
+    z-index: 1;
+  }
+}
+
+/* ---------- Outer orbit - This is the circles furthest away from the central point ---------- */
+#outer-orbit {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 400px;
+  height: 400px;
+  border-radius: 100%;
+  -webkit-animation: spin-right 20s linear infinite;
+  animation: spin-right 20s linear infinite;
+  
+}
+
+#outer-orbit2 {
+  top: 0;
+  left: 0;
+  width: 400px;
+  height: 400px;
+  border: 2px #f8f9fa24 dashed;
+  border-radius: 100%;
+
+   &::after {
+    content: "";
+    background: url("../../../public/images/orb3.png") no-repeat center
+      center/contain;
+    position: absolute;
+        height: 225px;
+    width: 169px;
+    top: 50px;
+    left: 260px;
+    z-index: 1;
+  }
+}
+
+/* ---------- Repeating styles for the outer orbiting circles ---------- */
+.outer-orbit-cirlces {
+  position: absolute;
+  top: -7px;
+  left: 125px;
+  height: 30px;
+  width: 30px;
+  border-radius: 100%;
+  background-color: #66b100;
+}
+
+.outer-orbit-cirlces2 {
+  position: absolute;
+  top: 325px;
+  left: 45px;
+  height: 30px;
+  width: 30px;
+  border-radius: 100%;
+  background-color: #039eff;
+}
+
+.outer-orbit-cirlces3 {
+  position: absolute;
+  top: 213px;
+  left: 381px;
+  height: 30px;
+  width: 30px;
+  border-radius: 100%;
+  background-color: #f27205;
+}
+
+/* ---------- Animation ---------- */
+@keyframes spin-right {
+  100% {
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
 }

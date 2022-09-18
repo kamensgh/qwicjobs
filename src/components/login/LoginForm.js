@@ -1,7 +1,6 @@
 import React, { useRef, useState } from "react";
 import Spinner from "react-bootstrap/Spinner";
 import { axiosRequest } from "../../api/axios";
-import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { loginStart, loginSuccess, loginFailure } from "../../redux/userRedux";
 import { useCookies } from "react-cookie";
@@ -10,7 +9,6 @@ const LoginForm = () => {
   const [cookies, setCookie] = useCookies(["user-cookie"]);
   const numberRef = useRef();
   const errRef = useRef();
-  let navigate = useNavigate();
 
   const [number, setNumber] = useState("");
   const [pwd, setPwd] = useState("");
@@ -31,6 +29,7 @@ const LoginForm = () => {
           password: pwd,
         }
       );
+      console.log(res);
       if (res.status === 200) {   
         localStorage.setItem("currentUser", JSON.stringify(res.data.data.user));
         console.log("data.length", res.data.data);
@@ -43,7 +42,7 @@ const LoginForm = () => {
         } else {
           console.log("user");
           window.location.href = "/"
-        }
+        } 
       } else {   
         setErrMsg(res.data.data.message);
         setLoading(false);

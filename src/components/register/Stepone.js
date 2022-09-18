@@ -83,7 +83,6 @@ const Stepone = ({ setPages, setFormData, formData }) => {
                 </label>
                 <input
                   type="text"
-                  autoComplete="off"
                   className="form-control"
                   ref={userRef}
                   id="firstname1"
@@ -106,7 +105,6 @@ const Stepone = ({ setPages, setFormData, formData }) => {
                 </label>
                 <input
                   type="text"
-                  autoComplete="off"
                   className="form-control"
                   id="lastname"
                   placeholder="eg. Mensah"
@@ -169,7 +167,6 @@ const Stepone = ({ setPages, setFormData, formData }) => {
                 </label>
                 <input
                   type="number"
-                  autoComplete="off"
                   className="form-control"
                   id="number"
                   placeholder="eg. 0244123456"
@@ -194,7 +191,6 @@ const Stepone = ({ setPages, setFormData, formData }) => {
                 </label>
                 <input
                   type="email"
-                  autoComplete="off"
                   className="form-control"
                   id="email"
                   placeholder="eg. email@example.com"
@@ -216,7 +212,6 @@ const Stepone = ({ setPages, setFormData, formData }) => {
                 </label>
                 <input
                   type="date"
-                  autoComplete="off"
                   className="form-control"
                   id="dob"
                   placeholder="eg. MM/DD/YY"

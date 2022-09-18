@@ -60,10 +60,10 @@ const Login = () => {
 
                       <div className="text-center ad-text">
                         <h4>
-                          {addata.header || "Kakum National Park - Ghana"}
+                          {addata?.header || "Kakum National Park - Ghana"}
                         </h4>
                         <p className="mb-0 fw-light">
-                          {addata.body || "The Akosombo Dam, also known as the Volta Dam, is a hydroelectric dam on the Volta River in southeastern Ghana in the Akosombo gorge and part of the Volta River Authority. The construction of the dam flooded part of the Volta River Basin, and led to the subsequent creation of Lake Volta."}
+                          {addata?.body || "The Akosombo Dam, also known as the Volta Dam, is a hydroelectric dam on the Volta River in southeastern Ghana in the Akosombo gorge and part of the Volta River Authority. The construction of the dam flooded part of the Volta River Basin, and led to the subsequent creation of Lake Volta."}
                         </p>
                       </div>
                     </div>
@@ -88,6 +88,7 @@ const Login = () => {
                         <h6 className="fw-bold">
                           Log in with your phone number
                         </h6>
+
 
                         <LoginForm />
                       </div>
