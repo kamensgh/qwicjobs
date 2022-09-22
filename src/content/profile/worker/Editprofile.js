@@ -200,10 +200,10 @@ const Editprofile = () => {
 
                   </div>
 
-                  <div className='p-4 border-bottom'>
+                  {/* <div className='p-4 border-bottom'>
                     <h6 className="fw-bold mb-1 text-success">Recent Work images</h6>
 
-                  </div>
+                  </div> */}
                 </div>
 
               </div>
@@ -247,7 +247,6 @@ const Editprofile = () => {
                       value={images}
                       onChange={onChange}
                       maxNumber={maxNumber}
-                      maxFileSize={maxNumber}
                       dataURLKey="data_url"
                     >
                       {({

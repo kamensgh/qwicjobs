@@ -10,6 +10,7 @@ import {
   WorkerDetails,
   JobDetails,
   EditWorkerProfile,
+  EditUserProfile,
   PostJob,
 } from "./content";
 import {
@@ -59,10 +60,11 @@ function App() {
               <Route path="/editdetails" element={<EditWorkerProfile />} />
               <Route path="*" element={<Navigate to="/workerprofile" />} />
             </Route>
-            <Route element={<UserLayout />}>
+            {/* <Route element={<UserLayout />}> 
               <Route path="/postjob" element={<PostJob />} />
+              <Route path="/editdetails" element={<EditUserProfile />} />
               <Route path="*" element={<Navigate to="/workerprofile" />} />
-            </Route>
+            </Route> */}
             <Route path="/login" element={<Login />} />
             <Route path="/user-signup" element={<UserSignup />} />
             <Route path="/worker-signup" element={<WorkerSignup />} />
